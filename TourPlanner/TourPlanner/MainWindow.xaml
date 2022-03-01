@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="450" Width="350">
+        Title="Tour-Planner" Height="450" Width="382">
+
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem  Header="File"><MenuItem Header="Import File"/></MenuItem>
-            <MenuItem  Header="Edit"></MenuItem>
-            <MenuItem  Header="Options"></MenuItem>
-            <MenuItem  Header="Help"></MenuItem>
+            <MenuItem  Header="_File"><MenuItem Header="Import File"/></MenuItem>
+            <MenuItem  Header="_Edit"></MenuItem>
+            <MenuItem  Header="_Options"></MenuItem>
+            <MenuItem  Header="_Help"></MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Top">
             <Button Content="Search" DockPanel.Dock="Right" >
@@ -45,8 +46,8 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Left"  Height="200"  VerticalAlignment="Stretch" Width="5"/>
-            <Grid Grid.Column="1">
+            <GridSplitter Grid.Column="1"  HorizontalAlignment="Left"  Height="200"  VerticalAlignment="Stretch" Width="5"/>
+            <Grid Grid.Column="1" Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
@@ -83,6 +84,5 @@
                 </DockPanel>
             </Grid>
         </Grid>
-
     </DockPanel>
 </Window>
