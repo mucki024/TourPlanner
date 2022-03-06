@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
         Title="Tour-Planner" Height="450" Width="382">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -15,7 +18,7 @@
             <MenuItem  Header="_Help"></MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Top">
-            <Button Content="Search" DockPanel.Dock="Right" >
+            <Button Content="Search" DockPanel.Dock="Right" Command="{Binding ExecuteTextSearch}" >
             </Button>
             <TextBox Text="SearchText" DockPanel.Dock="Right"/>
         </DockPanel>
@@ -27,24 +30,22 @@
             <DockPanel Grid.Column="0">
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
                     <Label Content="Tour" FontSize="15"/>
-                    <Button Content="+" Margin="5" FontSize="15"/>
+                    <Button Content="+" Margin="5" FontSize="15" Command="{Binding AddTour}"/>
                     <Button Content="-" Margin="5" FontSize="15"/>
                     <Button Content="[ ]" Margin="5" FontSize="15"/>
                 </StackPanel>
-                <ListBox  Margin="5">
-                    <!-- List Box Item needs to be removed => use template instead-->
-                    <ListBoxItem Content="-Tour 1"></ListBoxItem>
-                    <ListBoxItem Content="-Tour 2"></ListBoxItem>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <!--TextBlock Text="{Binding Path=TaskName}" /-->
-                                <!--TextBlock Text="{Binding Path=Description}"/-->
-                                <!--TextBlock Text="{Binding Path=Priority}"/-->
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                <ListView  Margin="5" ItemsSource="{Binding TourData}" >
+                    <ListView.Resources> <!-- Hides list view header-->
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                        </Style>
+                    </ListView.Resources>
+                    <ListView.View>
+                        <GridView x:Name="tourList">
+                            <GridViewColumn Header="Tours"  DisplayMemberBinding="{Binding Tourname}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </DockPanel>
             <GridSplitter Grid.Column="1"  HorizontalAlignment="Left"  Height="200"  VerticalAlignment="Stretch" Width="5"/>
             <Grid Grid.Column="1" Margin="5">

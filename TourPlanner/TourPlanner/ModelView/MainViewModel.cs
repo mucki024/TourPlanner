@@ -8,25 +8,26 @@ namespace TourPlanner
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Tour> Data { get; } = new ObservableCollection<Tour>();
-        public RelayCommand AddCommand { get; }
+        public ObservableCollection<Tour> TourData { get; } = new ObservableCollection<Tour>();
+        public RelayCommand ExecuteTextSearch { get; }
+        public RelayCommand AddTour { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainViewModel()
         {
-            /*
-            AddCommand = new RelayCommand((_) =>
+
+            ExecuteTextSearch = new RelayCommand((_) =>
             {
-                Data.Add(new HighscoreEntry(this.CurrentUsername, this.CurrentPoints));
-                CurrentUsername = string.Empty;
-                CurrentPoints = string.Empty;
-                OnPropertyChanged(nameof(CurrentUsername));
-                OnPropertyChanged("CurrentPoints");
-                IsUsernameFocused = true;
+
             });
-            IsUsernameFocused = true;
-            */
+
+            AddTour = new RelayCommand((_) =>
+            {
+                TourData.Add(new Tour("DummyTour"));
+                //OnPropertyChanged()
+            });
+            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
