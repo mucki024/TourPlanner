@@ -34,7 +34,7 @@
                     <Button Content="-" Margin="5" FontSize="15"/>
                     <Button Content="[ ]" Margin="5" FontSize="15"/>
                 </StackPanel>
-                <ListView  Margin="5" ItemsSource="{Binding TourData}" >
+                <ListView  Margin="5" ItemsSource="{Binding TourData}" SelectedItem="{Binding SelectedTour}" >
                     <ListView.Resources> <!-- Hides list view header-->
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Visibility" Value="Collapsed" />
