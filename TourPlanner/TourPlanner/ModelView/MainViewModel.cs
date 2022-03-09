@@ -4,11 +4,13 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using TourPlanner.Model;
+using TourPlanner.BusinessLayer;
 
 namespace TourPlanner
 {
     public class MainViewModel : ViewModelBase 
     {
+        private ITourFactory _tourfactory;
         public ObservableCollection<Tour> TourData { get; } = new ObservableCollection<Tour>();
         
         /* TODO: implement selected Tour behaivor
@@ -27,12 +29,17 @@ namespace TourPlanner
 
         public MainViewModel()
         {
-
+            _tourfactory = TourFactory.GetInstance();
+            foreach (Tour item in _tourfactory.getAllTours())
+            {
+                TourData.Add(item);
+            }
+            /*
             ExecuteTextSearch = new RelayCommand((_) =>
             {
 
             });
-
+            */
             AddTour = new RelayCommand((_) =>
             {
                 TourData.Add(new Tour("DummyTour"));

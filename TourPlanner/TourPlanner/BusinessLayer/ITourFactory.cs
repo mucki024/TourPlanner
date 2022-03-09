@@ -7,7 +7,7 @@ using TourPlanner.Model;
 
 namespace TourPlanner.BusinessLayer
 {
-    interface ITourFactory
+    public interface ITourFactory
     {
        
         IEnumerable<Tour> getAllTours();
