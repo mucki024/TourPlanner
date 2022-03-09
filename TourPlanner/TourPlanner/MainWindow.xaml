@@ -20,7 +20,7 @@
         <DockPanel DockPanel.Dock="Top">
             <Button Content="Search" DockPanel.Dock="Right" Command="{Binding ExecuteTextSearch}" >
             </Button>
-            <TextBox Text="SearchText" DockPanel.Dock="Right"/>
+            <TextBox Text="" DockPanel.Dock="Right"/>
         </DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
                     <Label Content="Tour" FontSize="15"/>
                     <Button Content="+" Margin="5" FontSize="15" Command="{Binding AddTour}"/>
-                    <Button Content="-" Margin="5" FontSize="15"/>
-                    <!--Button Content="[ ]" Margin="5" FontSize="15"/-->
+                    <Button Content="-" Margin="5" FontSize="15" Command="{Binding DeleteTour}"/>
+                    <Button Content="Modify" Margin="5" FontSize="15" Command="{Binding ChangeTour}"/>
                 </StackPanel>
                 <ListView  Margin="5" ItemsSource="{Binding TourData}" SelectedItem="{Binding SelectedTour}" >
                     <ListView.Resources> <!-- Hides list view header-->
@@ -42,7 +42,7 @@
                     </ListView.Resources>
                     <ListView.View>
                         <GridView x:Name="tourList">
-                            <GridViewColumn Header="Tours"  DisplayMemberBinding="{Binding Tourname}" />
+                            <GridViewColumn Header="Tours"  DisplayMemberBinding="{Binding Tourname, Mode=TwoWay}" />
                         </GridView>
                     </ListView.View>
                 </ListView>
