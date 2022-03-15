@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace TourPlanner.BusinessLayer
 
         public IEnumerable<Tour> searchTour(string searchterm)
         {
-            throw new NotImplementedException();
+            IEnumerable<Tour> tours = getAllTours();
+            return tours.Where(x => x.Tourname.Contains(searchterm));
         }
     }
 }

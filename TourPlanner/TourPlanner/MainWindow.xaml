@@ -20,7 +20,7 @@
         <DockPanel DockPanel.Dock="Top">
             <Button Content="Search" DockPanel.Dock="Right" Command="{Binding ExecuteTextSearch}" >
             </Button>
-            <TextBox Text="" DockPanel.Dock="Right"/>
+            <TextBox  DockPanel.Dock="Right" Text="{Binding SearchTour, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
