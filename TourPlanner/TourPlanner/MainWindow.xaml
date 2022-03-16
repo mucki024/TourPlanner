@@ -6,10 +6,6 @@
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
         Title="Tour-Planner" Height="450" Width="382">
-    <Window.DataContext>
-        <local:MainViewModel/>
-    </Window.DataContext>
-
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem  Header="_File"><MenuItem Header="Import File"/></MenuItem>
@@ -18,8 +14,8 @@
             <MenuItem  Header="_Help"></MenuItem>
         </Menu>
         <DockPanel DockPanel.Dock="Top">
-            <Button Content="Search" DockPanel.Dock="Right" Command="{Binding ExecuteTextSearch}" >
-            </Button>
+            <ToggleButton Content="{Binding SearchText}"  DockPanel.Dock="Right" Command="{Binding ExecuteTextSearch}" CommandParameter="{Binding IsChecked,RelativeSource={RelativeSource Self}}" >
+            </ToggleButton>
             <TextBox  DockPanel.Dock="Right" Text="{Binding SearchTour, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <Grid>

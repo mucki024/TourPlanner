@@ -13,5 +13,24 @@ namespace TourPlanner
     /// </summary>
     public partial class App : Application
     {
+        //data context needs to be set here => otherwise fail
+        private void App_OnStartup(object sender, StartupEventArgs e)
+        {
+            // BIZ-layer => maybe factory should be in here 
+            //var searchEngine = new StandardSearchEngine();
+
+            // MVVM:
+            //var searchBarViewModel = new SearchBarViewModel();
+            var subWindowTour = new SubWindowViewTour();
+            
+            var wnd = new MainWindow
+            {
+                DataContext = new MainViewModel(subWindowTour)
+                //subWindowTour = { DataContext = singleLineSearchBarViewModel }
+            };
+            
+            wnd.Show();
+        }
+        
     }
 }

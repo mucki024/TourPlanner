@@ -21,12 +21,17 @@ namespace TourPlanner
         Subviews required, but where ??
         */
 
+        //variable for other views
+        private readonly SubWindowViewTour _subWindowTour;
+
+
         private ITourFactory _tourfactory;
         private MouseButtonEventHandler _changebaleTour;
         private Tour _selectedTour;
         private string _searchTour;
+        private string _searchText = "Search";
         public ObservableCollection<Tour> TourData { get; } = new ObservableCollection<Tour>();
-        public RelayCommand ExecuteTextSearch { get; }
+        public RelayCommand ExecuteTextSearch { get { return new RelayCommand(DisplayTourResults); } }
         public RelayCommand AddTour { get; }
         public RelayCommand DeleteTour { get; }
         public RelayCommand ChangeTour { get; }
@@ -66,8 +71,38 @@ namespace TourPlanner
             }
         }
 
-        public MainViewModel()
+        public string SearchText
         {
+            get { return _searchText;  }
+            set
+            {
+                if(_searchText == "Search")
+                {
+                    _searchText = "Clear";
+                    OnPropertyChanged(nameof(SearchText));
+                }
+                else
+                {
+                    _searchText = "Search";
+                    OnPropertyChanged(nameof(SearchText));
+                }
+            }
+        }
+
+        public MainViewModel(SubWindowViewTour subWindowAddTour)
+        {
+            _tourfactory = TourFactory.GetInstance();
+
+            //init subwindow 
+            _subWindowTour = subWindowAddTour;
+
+            subWindowAddTour.OnSubmitClicked += (_, tourName) =>
+            {
+                // call the BIZ-layer
+                Debug.Print("adding new tour");
+                _tourfactory.addNewTour(tourName);
+            };
+
             //fill observable collection
             FillToursToCollection();
 
@@ -75,9 +110,8 @@ namespace TourPlanner
             {
                 TourWindow window = new TourWindow();
                 window.ShowDialog();
-
                 //MessageBox.Show("Your request will be processed.");
-                TourData.Add(new Tour("DummyTour"));
+                //TourData.Add(new Tour("DummyTour"));
             });
 
             DeleteTour = new RelayCommand((_) =>
@@ -90,28 +124,31 @@ namespace TourPlanner
             {
 
             });
-
-            ExecuteTextSearch = new RelayCommand((_) =>
-            {
-                DisplayTourResults();
-            });
-
-
         }
 
-        private void DisplayTourResults()
+        private void DisplayTourResults(object searchOrClear)
         {
-            IEnumerable foundItems = _tourfactory.searchTour(SearchTour);
-            TourData.Clear();
-            foreach (Tour item in foundItems)
+            bool search = (bool)searchOrClear;
+            if (search)     //search command
             {
-                TourData.Add(item);
+                IEnumerable foundItems = _tourfactory.searchTour(SearchTour);
+                TourData.Clear();
+                foreach (Tour item in foundItems)
+                {
+                    TourData.Add(item);
+                }
+                SearchText = "";
+            }
+            else        //clear command
+            {
+                FillToursToCollection();
+                SearchText = "";
+                SearchTour = "";
             }
         }
 
         private void FillToursToCollection()
         {
-            _tourfactory = TourFactory.GetInstance();
             foreach (Tour item in _tourfactory.getAllTours())
             {
                 TourData.Add(item);

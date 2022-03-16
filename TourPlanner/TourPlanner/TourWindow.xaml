@@ -3,17 +3,25 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TourPlanner"
+        xmlns:local="clr-namespace:TourPlanner" 
         mc:Ignorable="d"
         Title="TourWindow" Height="400" Width="300">
+    <Window.DataContext>
+        <local:SubWindowViewTour/>
+    </Window.DataContext>
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
-            <Label Content="Tourname" FontSize="15"/>
-            <TextBox />
+            <Label Content="Tourname" />
+            <TextBox Text="{Binding Tourname}" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
-            <Label Content="Description" FontSize="15"/>
+            <Label Content="Description" />
             <TextBox />
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button  Content = "Submit"
+            HorizontalAlignment = "Center" Margin = "0,0,0,5"
+            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}"/>
         </DockPanel>
     </DockPanel>
 </Window>

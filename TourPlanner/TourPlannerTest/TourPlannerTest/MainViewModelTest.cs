@@ -13,7 +13,7 @@ namespace TourPlannerTest
         [Test]
         public void Test1()
         {
-            MainViewModel model = new MainViewModel();
+            //MainViewModel model = new MainViewModel();
             Assert.Pass();
         }
 
