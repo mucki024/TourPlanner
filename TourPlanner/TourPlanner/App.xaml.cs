@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+//using TourPlanner.;
 
 namespace TourPlanner
 {
@@ -22,11 +23,13 @@ namespace TourPlanner
             // MVVM:
             //var searchBarViewModel = new SearchBarViewModel();
             var subWindowTour = new SubWindowViewTour();
-            
+
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(subWindowTour)
-                //subWindowTour = { DataContext = singleLineSearchBarViewModel }
+                DataContext = new MainViewModel(subWindowTour),
+                //SubWindowViewTour = { DataContext = subWindowTour}
+                //
+                //subWindowTour = { DataContext = subWindowTour }
             };
             
             wnd.Show();

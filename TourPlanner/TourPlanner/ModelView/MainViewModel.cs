@@ -9,6 +9,7 @@ using System.Drawing.Printing;
 using Aspose.Cells.Drawing;
 using System.Windows;
 using System.Collections;
+using System;
 
 namespace TourPlanner
 {
@@ -30,6 +31,7 @@ namespace TourPlanner
         private Tour _selectedTour;
         private string _searchTour;
         private string _searchText = "Search";
+
         public ObservableCollection<Tour> TourData { get; } = new ObservableCollection<Tour>();
         public RelayCommand ExecuteTextSearch { get { return new RelayCommand(DisplayTourResults); } }
         public RelayCommand AddTour { get; }
@@ -88,7 +90,7 @@ namespace TourPlanner
                 }
             }
         }
-
+      
         public MainViewModel(SubWindowViewTour subWindowAddTour)
         {
             _tourfactory = TourFactory.GetInstance();
@@ -99,8 +101,8 @@ namespace TourPlanner
             subWindowAddTour.OnSubmitClicked += (_, tourName) =>
             {
                 // call the BIZ-layer
-                Debug.Print("adding new tour");
                 _tourfactory.addNewTour(tourName);
+                FillToursToCollection();
             };
 
             //fill observable collection
@@ -109,9 +111,10 @@ namespace TourPlanner
             AddTour = new RelayCommand((_) =>
             {
                 TourWindow window = new TourWindow();
+                window.DataContext = _subWindowTour;
+                if (_subWindowTour.CloseAction == null)  //property to close window
+                    _subWindowTour.CloseAction = new Action(() => window.Close());
                 window.ShowDialog();
-                //MessageBox.Show("Your request will be processed.");
-                //TourData.Add(new Tour("DummyTour"));
             });
 
             DeleteTour = new RelayCommand((_) =>
@@ -131,8 +134,8 @@ namespace TourPlanner
             bool search = (bool)searchOrClear;
             if (search)     //search command
             {
+            TourData.Clear();
                 IEnumerable foundItems = _tourfactory.searchTour(SearchTour);
-                TourData.Clear();
                 foreach (Tour item in foundItems)
                 {
                     TourData.Add(item);
@@ -149,6 +152,7 @@ namespace TourPlanner
 
         private void FillToursToCollection()
         {
+            TourData.Clear();
             foreach (Tour item in _tourfactory.getAllTours())
             {
                 TourData.Add(item);

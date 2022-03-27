@@ -28,28 +28,31 @@ namespace TourPlanner
                 }
             }
         }
-        private ITourFactory _tourfactory; // needs to be removed
         public event EventHandler<string> OnSubmitClicked;
         public RelayCommand Submit { get; }
+        public Action CloseAction { get; set; }
 
         public SubWindowViewTour()
         {
-            _tourfactory = TourFactory.GetInstance();
             this.Submit = new RelayCommand((_) =>
             {
-                Debug.Print("Button clicked");
-                this.OnSubmitClicked?.Invoke(this, Tourname);
+                OnSubmitClicked?.Invoke(this, Tourname);
+                CloseAction();
             });
 
             //TODO: this should be in main, but the onSUbmit event does not work through two windows!
             //after adding, List needs to be refreshed
+            /*
             this.OnSubmitClicked += (_, tourName) =>
             {
                 // call the BIZ-layer
-                
+                //((MainWindow)Application.Current.MainWindow)
+
+                //need to invoke main event here
                 Debug.Print("adding new tour");
                 _tourfactory.addNewTour(tourName);
             };
+            */
         }
     }
 }
