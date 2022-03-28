@@ -23,7 +23,7 @@ namespace TourPlanner
         */
 
         //variable for other views
-        private readonly SubWindowViewTour _subWindowTour;
+        private SubWindowViewTour _subWindowTour;
 
 
         private ITourFactory _tourfactory;
@@ -53,9 +53,8 @@ namespace TourPlanner
             get => _selectedTour;
             set
             {   //set selected Tour and update UI
-                if (_selectedTour == value)
-                    Debug.Print("Clicked twice");
-                _selectedTour = value;
+                if(_selectedTour != value)
+                    _selectedTour = value;
                 OnPropertyChanged(nameof(SelectedTour));
             }
         }
@@ -94,16 +93,7 @@ namespace TourPlanner
         public MainViewModel(SubWindowViewTour subWindowAddTour)
         {
             _tourfactory = TourFactory.GetInstance();
-
-            //init subwindow 
-            _subWindowTour = subWindowAddTour;
-
-            subWindowAddTour.OnSubmitClicked += (_, tourName) =>
-            {
-                // call the BIZ-layer
-                _tourfactory.addNewTour(tourName);
-                FillToursToCollection();
-            };
+            IntSubWindowForTours(subWindowAddTour);
 
             //fill observable collection
             FillToursToCollection();
@@ -123,10 +113,32 @@ namespace TourPlanner
                     TourData.Remove(SelectedTour);
             });
 
+            //Todo: two Subwindows required => button behaivoiur different => one subview for input 
+            //Todo: view logic should not be in Viewmodel? 
             ChangeTour = new RelayCommand((_) =>
             {
-
+                if(SelectedTour != null)
+                {
+                    TourWindow window = new TourWindow();
+                    window.DataContext = _subWindowTour;
+                    _subWindowTour.Tourname = _selectedTour.Tourname;
+                    if (_subWindowTour.CloseAction == null)  //property to close window
+                        _subWindowTour.CloseAction = new Action(() => window.Close());
+                    window.ShowDialog();
+                }
             });
+        }
+
+        private void IntSubWindowForTours(SubWindowViewTour subWindowAddTour)
+        {
+            _subWindowTour = subWindowAddTour;
+
+            subWindowAddTour.OnSubmitClicked += (_, tourName) =>
+            {
+                // call the BIZ-layer
+                _tourfactory.addNewTour(tourName);
+                FillToursToCollection();
+            };
         }
 
         private void DisplayTourResults(object searchOrClear)
@@ -134,7 +146,7 @@ namespace TourPlanner
             bool search = (bool)searchOrClear;
             if (search)     //search command
             {
-            TourData.Clear();
+                TourData.Clear();
                 IEnumerable foundItems = _tourfactory.searchTour(SearchTour);
                 foreach (Tour item in foundItems)
                 {
