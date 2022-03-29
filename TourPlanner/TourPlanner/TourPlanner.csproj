@@ -11,4 +11,9 @@
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj" />
+    <ProjectReference Include="..\TourPlanner.Model\TourPlanner.Model.csproj" />
+  </ItemGroup>
+
 </Project>

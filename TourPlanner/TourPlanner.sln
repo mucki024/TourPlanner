@@ -5,7 +5,13 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlanner", "TourPlanner\TourPlanner.csproj", "{BE909605-4DC8-4ED7-B56A-371604E41369}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlannerTest", "TourPlannerTest\TourPlannerTest\TourPlannerTest.csproj", "{04B40154-0527-445A-A34D-02378C5642FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TourPlannerTest", "TourPlannerTest\TourPlannerTest\TourPlannerTest.csproj", "{04B40154-0527-445A-A34D-02378C5642FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.BusinessLayer", "TourPlanner.BusinessLayer\TourPlanner.BusinessLayer.csproj", "{ED0BF8AC-593A-4B71-9EEA-05A492026AC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.DataAccess", "TourPlanner.DataAccess\TourPlanner.DataAccess.csproj", "{BCC49705-2C0E-493F-91C2-8AF3BD26B21E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TourPlanner.Model", "TourPlanner.Model\TourPlanner.Model.csproj", "{0BB9D381-F8A0-46B4-A9DD-7140A23B2AFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{04B40154-0527-445A-A34D-02378C5642FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04B40154-0527-445A-A34D-02378C5642FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04B40154-0527-445A-A34D-02378C5642FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED0BF8AC-593A-4B71-9EEA-05A492026AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED0BF8AC-593A-4B71-9EEA-05A492026AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED0BF8AC-593A-4B71-9EEA-05A492026AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED0BF8AC-593A-4B71-9EEA-05A492026AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCC49705-2C0E-493F-91C2-8AF3BD26B21E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCC49705-2C0E-493F-91C2-8AF3BD26B21E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCC49705-2C0E-493F-91C2-8AF3BD26B21E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCC49705-2C0E-493F-91C2-8AF3BD26B21E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB9D381-F8A0-46B4-A9DD-7140A23B2AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB9D381-F8A0-46B4-A9DD-7140A23B2AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB9D381-F8A0-46B4-A9DD-7140A23B2AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB9D381-F8A0-46B4-A9DD-7140A23B2AFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
