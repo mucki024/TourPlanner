@@ -30,6 +30,17 @@ namespace TourPlanner.Model
             EstimatedTime = 0;
             RouteInformation = "Nope";
         }
+        public Tour(string tourname, string start, string destination, string description, string transportType)
+        {
+            TourID = 1;
+            Tourname = tourname;
+            Start = start;
+            Destination = destination;
+            RouteInformation = description;
+            TransportType = transportType;
+            TourDistance = 0;
+            EstimatedTime = 0;
+        }
         //Objekt irgendwie überarbeiten
         public Tour(int tourId,string tourname, string description, string from, string to, string transportType,int distance, int EstimatedTime)
         {

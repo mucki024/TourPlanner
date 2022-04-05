@@ -13,7 +13,7 @@ using System;
 
 namespace TourPlanner
 {
-    public class MainViewModel : ViewModelBase 
+    public class MainViewModel : ViewModelBase
     {
         /*
         Textsearch possible, but no return possibility => no input = reset or add clear button
@@ -24,7 +24,6 @@ namespace TourPlanner
 
         //variable for other views
         private SubWindowViewTour _subWindowTour;
-
 
         private ITourFactory _tourfactory;
         private MouseButtonEventHandler _changebaleTour;
@@ -53,7 +52,7 @@ namespace TourPlanner
             get => _selectedTour;
             set
             {   //set selected Tour and update UI
-                if(_selectedTour != value)
+                if (_selectedTour != value)
                     _selectedTour = value;
                 OnPropertyChanged(nameof(SelectedTour));
             }
@@ -74,10 +73,10 @@ namespace TourPlanner
 
         public string SearchText
         {
-            get { return _searchText;  }
+            get { return _searchText; }
             set
             {
-                if(_searchText == "Search")
+                if (_searchText == "Search")
                 {
                     _searchText = "Clear";
                     OnPropertyChanged(nameof(SearchText));
@@ -89,22 +88,18 @@ namespace TourPlanner
                 }
             }
         }
-      
-        public MainViewModel(SubWindowViewTour subWindowAddTour)
+
+        public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow)
         {
             _tourfactory = TourFactory.GetInstance();
-            IntSubWindowForTours(subWindowAddTour);
+            IntSubWindowForTours(vmTourWindow);
 
             //fill observable collection
             FillToursToCollection();
 
             AddTour = new RelayCommand((_) =>
             {
-                TourWindow window = new TourWindow();
-                window.DataContext = _subWindowTour;
-                if (_subWindowTour.CloseAction == null)  //property to close window
-                    _subWindowTour.CloseAction = new Action(() => window.Close());
-                window.ShowDialog();
+                TourWindow.CreateNewWindow();
             });
 
             DeleteTour = new RelayCommand((_) =>
@@ -117,26 +112,22 @@ namespace TourPlanner
             //Todo: view logic should not be in Viewmodel? 
             ChangeTour = new RelayCommand((_) =>
             {
-                if(SelectedTour != null)
+                if (SelectedTour != null)
                 {
-                    TourWindow window = new TourWindow();
-                    window.DataContext = _subWindowTour;
-                    _subWindowTour.Tourname = _selectedTour.Tourname;
-                    if (_subWindowTour.CloseAction == null)  //property to close window
-                        _subWindowTour.CloseAction = new Action(() => window.Close());
-                    window.ShowDialog();
+                    var tmpTourWindow = TourWindow as WindowFactory;
+                    tmpTourWindow.CreateNewWindow(_selectedTour);
                 }
             });
         }
 
-        private void IntSubWindowForTours(SubWindowViewTour subWindowAddTour)
+        private void IntSubWindowForTours(SubWindowViewTour viewModelTour)
         {
-            _subWindowTour = subWindowAddTour;
+            _subWindowTour = viewModelTour;
 
-            subWindowAddTour.OnSubmitClicked += (_, tourName) =>
+            viewModelTour.OnSubmitClicked += (_, TourClass) =>
             {
                 // call the BIZ-layer
-                _tourfactory.addNewTour(tourName);
+                _tourfactory.addNewTour(TourClass);
                 FillToursToCollection();
             };
         }

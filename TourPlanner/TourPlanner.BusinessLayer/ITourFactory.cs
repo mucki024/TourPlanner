@@ -5,7 +5,7 @@ namespace TourPlanner.BusinessLayer
 {
     public interface ITourFactory
     {
-        bool addNewTour(string tourname);
+        bool addNewTour(Tour tourModel);
         IEnumerable<Tour> getAllTours();
         IEnumerable<Tour> searchTour(string searchterm);
     }

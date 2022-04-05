@@ -10,13 +10,30 @@
         <local:SubWindowViewTour/>
     </Window.DataContext>
     <DockPanel>
+        <DockPanel DockPanel.Dock="Top" >
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Tour Attributes:" FontSize="16"></Label>
+            </StackPanel>
+        </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Tourname" />
             <TextBox Text="{Binding Tourname}" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Description" />
-            <TextBox />
+            <TextBox Text="{Binding Description}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Start" />
+            <TextBox Text="{Binding Start}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Destination" />
+            <TextBox Text="{Binding Destination}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="TransportType" />
+            <TextBox Text="{Binding TransportType}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <Button  Content = "Submit"

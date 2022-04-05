@@ -16,7 +16,6 @@ namespace TourPlanner.BusinessLayer
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             return tourDAO.GetTours(); 
-            
         }
 
         public IEnumerable<Tour> searchTour(string searchterm)
@@ -27,11 +26,10 @@ namespace TourPlanner.BusinessLayer
         }
 
         //this needs to be extended => how should the whole user input be transmitted? => JSON?
-        public bool addNewTour(string tourname) // in the business layer we need to translate the data input to a Tour
+        public bool addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            Tour toAdd = new Tour(tourname);
-            tourDAO.AddNewTour(toAdd);
+            tourDAO.AddNewTour(tourModel);
             return true;
         }
     }

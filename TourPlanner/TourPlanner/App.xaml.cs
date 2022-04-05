@@ -22,18 +22,16 @@ namespace TourPlanner
 
             // MVVM:
             //var searchBarViewModel = new SearchBarViewModel();
-            var subWindowTour = new SubWindowViewTour();
+            var viewModelForTours = new SubWindowViewTour();
+            var subWindowForTours = new WindowFactory(viewModelForTours);
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(subWindowTour),
-                //SubWindowViewTour = { DataContext = subWindowTour}
-                //
-                //subWindowTour = { DataContext = subWindowTour }
+                DataContext = new MainViewModel(subWindowForTours, viewModelForTours),
             };
-            
+
             wnd.Show();
         }
-        
+
     }
 }
