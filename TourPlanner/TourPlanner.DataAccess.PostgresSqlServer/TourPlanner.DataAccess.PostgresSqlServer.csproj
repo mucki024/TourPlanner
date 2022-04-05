@@ -2,13 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TourPlanner.DataAccess.PostgresSqlServer\TourPlanner.DataAccess.PostgresSqlServer.csproj" />
+    <PackageReference Include="Npgsql" Version="6.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\TourPlanner.DataAccess\TourPlanner.DataAccess.csproj" />
-    <ProjectReference Include="..\TourPlanner.Model\TourPlanner.Model.csproj" />
   </ItemGroup>
 
 </Project>
