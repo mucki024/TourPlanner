@@ -36,7 +36,7 @@
             <TextBox Text="{Binding TransportType}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
-            <Button  Content = "Submit"
+            <Button  x:Name="submit" Content = "Submit"
             HorizontalAlignment = "Center" Margin = "0,0,0,5"
             VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}"/>
         </DockPanel>

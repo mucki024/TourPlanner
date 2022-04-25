@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="450" Width="382">
+        Title="Tour-Planner" Height="450" Width="421">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem  Header="_File"><MenuItem Header="Import File"/></MenuItem>
@@ -49,17 +49,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <DockPanel Grid.Row="0">
-                    <Label DockPanel.Dock="Top" Content="Title: " FontSize="15"/>
-                    <TabControl DockPanel.Dock="Top" Margin="5">
-                        <TabItem Header="Route">
-                            <Image HorizontalAlignment="Left" Height="100"  VerticalAlignment="Top" Width="200" />
-                        </TabItem>
-                        <TabItem Header="Description">
-                            <TextBlock HorizontalAlignment="Left" Text="TextBlock" TextWrapping="Wrap"/>
-                        </TabItem>
-                    </TabControl>
-                </DockPanel>
+                <local:TourDescription x:Name="TourDescriptionView" Grid.Row="0" />
                 <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch"  Height="5"  VerticalAlignment="Top" Width="100"/>
                 <DockPanel Grid.Row="1" Margin="5">
                     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >

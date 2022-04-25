@@ -24,10 +24,12 @@ namespace TourPlanner
             //var searchBarViewModel = new SearchBarViewModel();
             var viewModelForTours = new SubWindowViewTour();
             var subWindowForTours = new WindowFactory(viewModelForTours);
+            var viewModelTourDescr = new SubViewTourDescription();
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(subWindowForTours, viewModelForTours),
+                DataContext = new MainViewModel(subWindowForTours, viewModelForTours, viewModelTourDescr),
+                TourDescriptionView = { DataContext = viewModelTourDescr }
             };
 
             wnd.Show();
