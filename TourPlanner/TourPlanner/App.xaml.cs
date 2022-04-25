@@ -25,11 +25,13 @@ namespace TourPlanner
             var viewModelForTours = new SubWindowViewTour();
             var subWindowForTours = new WindowFactory(viewModelForTours);
             var viewModelTourDescr = new SubViewTourDescription();
+            var viewModelTourLogs = new SubViewTourLogs();
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(subWindowForTours, viewModelForTours, viewModelTourDescr),
-                TourDescriptionView = { DataContext = viewModelTourDescr }
+                DataContext = new MainViewModel(subWindowForTours, viewModelForTours, viewModelTourDescr, viewModelTourLogs),
+                TourDescriptionView = { DataContext = viewModelTourDescr },
+                TourLogView = {DataContext = viewModelTourLogs}
             };
 
             wnd.Show();

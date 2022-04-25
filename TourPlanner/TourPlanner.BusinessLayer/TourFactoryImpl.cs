@@ -15,7 +15,7 @@ namespace TourPlanner.BusinessLayer
         public IEnumerable<Tour> getAllTours()
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            return tourDAO.GetTours(); 
+            return tourDAO.GetTours();
         }
 
         public IEnumerable<Tour> searchTour(string searchterm)
@@ -25,12 +25,17 @@ namespace TourPlanner.BusinessLayer
             return tours.Where(x => x.Tourname.Contains(searchterm));
         }
 
-        //this needs to be extended => how should the whole user input be transmitted? => JSON?
         public bool addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             tourDAO.AddNewTour(tourModel);
             return true;
+        }
+
+        public IEnumerable<TourLog> getAllLogs(int tourId)
+        {
+            ITourLogDAO tourLogDAO = DALFactory.CreateTourLogDAO();
+            return tourLogDAO.GetLogsForTour(tourId);
         }
     }
 }

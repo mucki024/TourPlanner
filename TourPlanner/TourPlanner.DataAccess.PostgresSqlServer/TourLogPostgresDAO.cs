@@ -68,10 +68,10 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                     LogList.Add(new TourLog( //generates object for each row & instantly appends it
                         (int)reader["tid"],
                         (string)reader["comment"],
-                        (int)reader["difficulty"],
+                        (Int16)reader["difficulty"],
                         (DateTime)reader["date"],//maybe need to do as string in db if not work right
                         (TimeSpan)reader["time"],//maybe need to do as string in db if not work right
-                        (int)reader["rating"]
+                        (Int16)reader["rating"]
 
                         ));
                 }

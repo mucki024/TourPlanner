@@ -16,6 +16,7 @@ namespace TourPlanner.Model
         public string Comment { get; set; }
         public DiffucltyLevel Difficulty  { get; set; }
         public DateTime Timestamp { get; set; }
+        public string DateOnly { get; set; }
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
         public TourLog(int id,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
@@ -26,6 +27,12 @@ namespace TourPlanner.Model
             this.Timestamp = timestamp;
             this.TotalTime = totalTime;
             this.Rating = rating;
+            ConvertDate();
+        }
+
+        public void ConvertDate()
+        {
+            DateOnly = Timestamp.ToString("MMMM dd, yyyy");
         }
     }
     

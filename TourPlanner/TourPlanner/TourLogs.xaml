@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="TourPlanner.TourLogs"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TourPlanner"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel Grid.Row="1" Margin="5">
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
+            <Label Content="Logs: "/>
+            <Button Content="+" Margin="5" FontSize="15"/>
+            <Button Content="-" Margin="5" FontSize="15"/>
+            <!--Button Content="Save" Margin="5" FontSize="15" /-->
+        </StackPanel>
+        <DataGrid ItemsSource="{Binding TourLogData}" 
+                  AutoGenerateColumns="False" 
+                  AlternatingRowBackground="LightGray">
+            <!-- use datagrid to display table dynamically-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding DateOnly}"  Header="Date"/>
+                <DataGridTextColumn Binding="{Binding TotalTime}"  Header="Duration"/>
+                <DataGridTextColumn Binding="{Binding Rating}"  Header="Rating"/>
+                <DataGridTextColumn Binding="{Binding Difficulty}"  Header="Difficulty"/>
+                <DataGridTextColumn Binding="{Binding Comment}" Header="Comment"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

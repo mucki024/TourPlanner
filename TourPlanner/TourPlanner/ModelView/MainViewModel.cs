@@ -25,6 +25,7 @@ namespace TourPlanner
         //variable for other views
         private SubWindowViewTour _subWindowTour;
         private readonly SubViewTourDescription _subViewTourDescr;
+        private readonly SubViewTourLogs _subViewTourLogs;
 
         private ITourFactory _tourfactory;
         private MouseButtonEventHandler _changebaleTour;
@@ -95,11 +96,12 @@ namespace TourPlanner
         }
 
         //Todo: add TourFactory through DI
-        public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr)
+        public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs)
         {
             _tourfactory = TourFactory.GetInstance();
             IntSubWindowForTours(vmTourWindow);
             _subViewTourDescr = vmTourDescpr;
+            _subViewTourLogs = vmTourLogs;
 
             //fill observable collection
             FillToursToCollection();
@@ -171,6 +173,7 @@ namespace TourPlanner
         private void DisplayTourDescription()
         {
             _subViewTourDescr.displayAttributes(_selectedTour);
+            _subViewTourLogs.getCurrentSelectedTour(_selectedTour);
         }
     }
 }
