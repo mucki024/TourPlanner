@@ -23,9 +23,10 @@ namespace TourPlanner
             // MVVM:
             //var searchBarViewModel = new SearchBarViewModel();
             var viewModelForTours = new SubWindowViewTour();
-            var subWindowForTours = new WindowFactory(viewModelForTours);
+            var viewModelForLogs = new SubWindowViewLog();
+            var subWindowForTours = new WindowFactory(viewModelForTours, viewModelForLogs);
             var viewModelTourDescr = new SubViewTourDescription();
-            var viewModelTourLogs = new SubViewTourLogs();
+            var viewModelTourLogs = new SubViewTourLogs(viewModelForLogs,subWindowForTours);
 
             var wnd = new MainWindow
             {

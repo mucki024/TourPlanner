@@ -10,9 +10,11 @@ namespace TourPlanner
     public class WindowFactory : IWindowFactory
     {
         private SubWindowViewTour _viewModel;
-        public WindowFactory(SubWindowViewTour viewModel)
+        private SubWindowViewLog _viewModelLog;
+        public WindowFactory(SubWindowViewTour viewModel, SubWindowViewLog viewLog)
         {
             _viewModel = viewModel;
+            _viewModelLog = viewLog;
         }
 
         public void CreateNewWindow()
@@ -26,6 +28,16 @@ namespace TourPlanner
             _viewModel.TransportType = "";
             //if (_viewModel.CloseAction == null)  //property to close window
             _viewModel.CloseAction = new Action(() => window.Close());
+            window.ShowDialog();
+        }
+
+        public void CreateLogWindow(int tourID)
+        {
+            LogWindow window = new LogWindow();
+            window.DataContext = _viewModelLog;
+            //_viewModelLog.Rating = 10;
+            _viewModelLog.TourID = tourID;
+            _viewModelLog.CloseAction = new Action(() => window.Close());
             window.ShowDialog();
         }
 

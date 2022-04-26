@@ -17,7 +17,6 @@ namespace TourPlanner.BusinessLayer
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             return tourDAO.GetTours();
         }
-
         public IEnumerable<Tour> searchTour(string searchterm)
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
@@ -29,6 +28,12 @@ namespace TourPlanner.BusinessLayer
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             tourDAO.AddNewTour(tourModel);
+            return true;
+        }
+        public bool addNewLog(TourLog tourLog)
+        {
+            ITourLogDAO tourLogDao = DALFactory.CreateTourLogDAO();
+            tourLogDao.AddNewTourLog(tourLog.TourID,tourLog.Comment,((Int32)tourLog.Difficulty),tourLog.Timestamp,tourLog.TotalTime,tourLog.Rating);
             return true;
         }
 

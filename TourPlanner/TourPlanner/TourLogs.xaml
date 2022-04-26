@@ -9,12 +9,14 @@
     <DockPanel Grid.Row="1" Margin="5">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" >
             <Label Content="Logs: "/>
-            <Button Content="+" Margin="5" FontSize="15"/>
-            <Button Content="-" Margin="5" FontSize="15"/>
+            <Button Content="+" Margin="5" FontSize="15" Command="{Binding AddLog}"/>
+            <Button Content="-" Margin="5" FontSize="15" Command="{Binding DeleteLog}"/>
             <!--Button Content="Save" Margin="5" FontSize="15" /-->
         </StackPanel>
         <DataGrid ItemsSource="{Binding TourLogData}" 
                   AutoGenerateColumns="False" 
+                  CanUserAddRows="True"
+                  CanUserDeleteRows="True"
                   AlternatingRowBackground="LightGray">
             <!-- use datagrid to display table dynamically-->
             <DataGrid.Columns>

@@ -33,7 +33,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             database.DefineParameter(insertCommand, "@date", DbType.DateTime, timestamp);
             database.DefineParameter(insertCommand, "@difficulty", DbType.Int32, diffuclty);
             database.DefineParameter(insertCommand, "@comment", DbType.String, comment);
-            database.DefineParameter(insertCommand, "@time", DbType.DateTime, totalTime);
+            database.DefineParameter(insertCommand, "@time", DbType.Time, totalTime);
             database.DefineParameter(insertCommand, "@rating", DbType.Int32, rating);
             return GetById(database.ExecuteNonQuery(insertCommand)); // does the DB request
         }

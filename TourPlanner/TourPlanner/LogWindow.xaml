@@ -1,0 +1,44 @@
+﻿<Window x:Class="TourPlanner.LogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TourPlanner"
+        mc:Ignorable="d"
+        Title="LogWindow" Height="400" Width="300">
+    <Window.DataContext>
+        <local:SubWindowViewTour/>
+    </Window.DataContext>
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" >
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Log Attributes:" FontSize="16"></Label>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Date" />
+            <DatePicker Text="{Binding Timestamp}" />
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Difficulty" />
+            <TextBox Text="{Binding Difficulty}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Total Time" />
+            <DatePickerTextBox Text="{Binding TotalTime}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Rating" />
+            <TextBox Text="{Binding Rating}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+            <Label Content="Comment" />
+            <TextBox Text="{Binding Comment}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button  x:Name="submit" Content = "Submit"
+            HorizontalAlignment = "Center" Margin = "0,0,0,5"
+            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}"/>
+        </DockPanel>
+    </DockPanel>
+</Window>

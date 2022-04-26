@@ -16,10 +16,22 @@ namespace TourPlanner
         private ITourFactory _tourfactory;
         private int _tourID = -1;
 
-        public SubViewTourLogs()
+        public RelayCommand AddLog { get; }
+        public RelayCommand DeleteLog { get; }
+
+        public SubViewTourLogs(SubWindowViewLog viewModel ,WindowFactory winFac)
         {
             _tourfactory = TourFactory.GetInstance();   //should be done with DI perhaps
+            AddLog = new RelayCommand((_) =>
+            {
+                winFac.CreateLogWindow(_tourID);
+            });
             FillLogsToCollection();
+            viewModel.OnSubmitClicked += (_, TourClass) =>
+            {
+                _tourfactory.addNewLog(TourClass);
+                FillLogsToCollection();
+            };
         }
         private void FillLogsToCollection()
         {

@@ -12,7 +12,7 @@ namespace TourPlanner.Model
     }
     public class TourLog
     {
-        public int LogID { get; set; } //changed from string to int
+        public int TourID { get; set; } //changed from string to int
         public string Comment { get; set; }
         public DiffucltyLevel Difficulty  { get; set; }
         public DateTime Timestamp { get; set; }
@@ -21,7 +21,7 @@ namespace TourPlanner.Model
         public int Rating { get; set; }
         public TourLog(int id,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
         { //basic constructor for the TourLogDAO
-            this.LogID = id;
+            this.TourID = id;
             this.Comment = comment;
             this.Difficulty = (DiffucltyLevel)difficulty;
             this.Timestamp = timestamp;
