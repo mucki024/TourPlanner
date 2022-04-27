@@ -102,10 +102,6 @@ namespace TourPlanner
         //Todo: add TourFactory through DI
         public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs)
         {
-            //log4net.Config.XmlConfigurator.Configure(new FileInfo("./Config.xml"));
-            //logger.Debug("created();");
-            logger.Debug("Created new Tour Window");
-
             _tourfactory = TourFactory.GetInstance();
             IntSubWindowForTours(vmTourWindow);
             _subViewTourDescr = vmTourDescpr;
