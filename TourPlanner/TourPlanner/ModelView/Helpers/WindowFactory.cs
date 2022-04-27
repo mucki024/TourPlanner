@@ -11,6 +11,7 @@ namespace TourPlanner
     {
         private SubWindowViewTour _viewModel;
         private SubWindowViewLog _viewModelLog;
+
         public WindowFactory(SubWindowViewTour viewModel, SubWindowViewLog viewLog)
         {
             _viewModel = viewModel;

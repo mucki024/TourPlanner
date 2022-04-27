@@ -10,6 +10,8 @@ using Aspose.Cells.Drawing;
 using System.Windows;
 using System.Collections;
 using System;
+using System.IO;
+using TourPlanner.Logging;
 
 namespace TourPlanner
 {
@@ -21,8 +23,10 @@ namespace TourPlanner
         Binding,Business Layer and Logic needs to be added for Tour Logs
         Subviews required, but where ??
         */
+        private static ILoggerWrapper logger = LoggerFactory.GetLogger();
 
         //variable for other views
+
         private SubWindowViewTour _subWindowTour;
         private readonly SubViewTourDescription _subViewTourDescr;
         private readonly SubViewTourLogs _subViewTourLogs;
@@ -98,6 +102,10 @@ namespace TourPlanner
         //Todo: add TourFactory through DI
         public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs)
         {
+            //log4net.Config.XmlConfigurator.Configure(new FileInfo("./Config.xml"));
+            //logger.Debug("created();");
+            logger.Debug("Created new Tour Window");
+
             _tourfactory = TourFactory.GetInstance();
             IntSubWindowForTours(vmTourWindow);
             _subViewTourDescr = vmTourDescpr;
