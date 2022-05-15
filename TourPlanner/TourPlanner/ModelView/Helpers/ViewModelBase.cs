@@ -17,7 +17,7 @@ namespace TourPlanner
         //checks if property string is null
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Debug.Print($"propertyChanged \"{propertyName}\"");
+            //Debug.Print($"propertyChanged \"{propertyName}\"");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 

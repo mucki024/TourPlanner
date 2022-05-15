@@ -25,23 +25,25 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             this.database = DALFactory.GetDatabase();
             this.logDAO = DALFactory.CreateTourLogDAO(); 
         }
-        public Tour AddNewTour(string tourName, string tourFrom, string tourTo, string tourTransportType, string tourRouteInformation)
+        public Tour AddNewTour(Tour tour)
         {
             DbCommand insertCommand = database.CreateCommand(SQL_INSERT_NEW_LOG);
-            database.DefineParameter(insertCommand, "@name", DbType.String, tourName);
-            database.DefineParameter(insertCommand, "@from", DbType.String, tourFrom);
-            database.DefineParameter(insertCommand, "@to", DbType.String, tourTo);
-            database.DefineParameter(insertCommand, "@transport_type", DbType.String, tourTransportType);
-            database.DefineParameter(insertCommand, "@description", DbType.String, tourRouteInformation);
-            database.DefineParameter(insertCommand, "@estimated_length", DbType.Int32, 0); //initially set as 0 cause not sure how we will do it yet
-            database.DefineParameter(insertCommand, "@distance", DbType.Int32, 0); //initially set as 0 cause not sure how we will do it yet
+            database.DefineParameter(insertCommand, "@name", DbType.String, tour.Tourname);
+            database.DefineParameter(insertCommand, "@from", DbType.String, tour.Start);
+            database.DefineParameter(insertCommand, "@to", DbType.String, tour.Destination);
+            database.DefineParameter(insertCommand, "@transport_type", DbType.String, tour.TransportType);
+            database.DefineParameter(insertCommand, "@description", DbType.String, tour.RouteInformation);
+            database.DefineParameter(insertCommand, "@estimated_length", DbType.Time, tour.EstimatedTime); //initially set as 0 cause not sure how we will do it yet
+            database.DefineParameter(insertCommand, "@distance", DbType.Double, tour.TourDistance); //initially set as 0 cause not sure how we will do it yet
             return FindById(database.ExecuteNonQuery(insertCommand)); // does the DB request
         }
 
+        /*
         public void AddNewTour(Tour tour)
         {
-            AddNewTour(tour.Tourname,tour.Start,tour.Destination,tour.TransportType,tour.RouteInformation);
+            AddNewTour(tour);
         }
+        */
 
         public Tour FindById(int tourId)
         {
@@ -71,8 +73,8 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                         (string)reader["from"],
                         (string)reader["to"],
                         (string)reader["transport_type"],
-                        (int)reader["distance"],
-                        (int)reader["estimated_length"]//maybe need to do as string in db if not work right
+                        (double)reader["distance"],
+                        (TimeSpan)reader["estimated_length"]//maybe need to do as string in db if not work right
                         );
                     toAdd.AddLogs(logDAO.GetLogsForTour((int)reader["id"])); //it should really be an int in code but there are references on it
                     TourList.Add(toAdd);

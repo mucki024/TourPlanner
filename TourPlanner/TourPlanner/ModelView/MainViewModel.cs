@@ -102,6 +102,7 @@ namespace TourPlanner
         //Todo: add TourFactory through DI
         public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs)
         {
+            logger.Debug("Started Application");
             _tourfactory = TourFactory.GetInstance();
             IntSubWindowForTours(vmTourWindow);
             _subViewTourDescr = vmTourDescpr;
@@ -137,10 +138,10 @@ namespace TourPlanner
         {
             _subWindowTour = viewModelTour;
 
-            viewModelTour.OnSubmitClicked += (_, TourClass) =>
+            viewModelTour.OnSubmitClicked += async (_, TourClass) =>
             {
                 // call the BIZ-layer
-                _tourfactory.addNewTour(TourClass);
+                await _tourfactory.addNewTour(TourClass);
                 FillToursToCollection();
             };
         }

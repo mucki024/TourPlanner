@@ -24,11 +24,15 @@ namespace TourPlanner.BusinessLayer
             return tours.Where(x => x.Tourname.Contains(searchterm));
         }
 
-        public bool addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
+        public async Task addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
+            IRouteAccess routeAcces = DALFactory.GetRouteApi();
+            routeAcces.PrepareUrl(tourModel);
+            RouteModel model = await routeAcces.ReadData<RouteModel>(); //Todo: needs to be done in DAL
+            tourModel.TourDistance = model.Route.Distance;
+            tourModel.EstimatedTime = model.Route.FormattedTime;
             tourDAO.AddNewTour(tourModel);
-            return true;
         }
         public bool addNewLog(TourLog tourLog)
         {

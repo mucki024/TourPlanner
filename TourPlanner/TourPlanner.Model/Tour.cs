@@ -13,12 +13,13 @@ namespace TourPlanner.Model
         public string Start { get; set; }
         public string Destination { get; set; }
         public string TransportType { get; set; }
-        public int TourDistance { get; set; }
-        public int EstimatedTime { get; set; }
+        public double TourDistance { get; set; }
+        public TimeSpan EstimatedTime { get; set; }
         public string RouteInformation { get; set; }
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 
+        /*
         public Tour(string tourname)
         {
             TourID = 1;
@@ -30,6 +31,7 @@ namespace TourPlanner.Model
             EstimatedTime = 0;
             RouteInformation = "Nope";
         }
+        */
         public Tour(string tourname, string start, string destination, string description, string transportType)
         {
             TourID = 1;
@@ -39,10 +41,11 @@ namespace TourPlanner.Model
             RouteInformation = description;
             TransportType = transportType;
             TourDistance = 0;
-            EstimatedTime = 0;
+            EstimatedTime = TimeSpan.Zero;
         }
         //Objekt irgendwie überarbeiten
-        public Tour(int tourId,string tourname, string description, string from, string to, string transportType,int distance, int EstimatedTime)
+        
+        public Tour(int tourId,string tourname, string description, string from, string to, string transportType,double distance, TimeSpan EstimatedTime)
         {
             this.TourID = tourId;
             this.Tourname = tourname;
@@ -54,6 +57,7 @@ namespace TourPlanner.Model
             this.TourDistance = distance;
 
         }
+        
         public void AddLogs(IEnumerable<TourLog> Logs)
         {
             foreach (TourLog log in Logs)

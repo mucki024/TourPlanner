@@ -5,8 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TourPlanner"
              mc:Ignorable="d" 
+             xmlns:i = "http://schemas.microsoft.com/expression/2010/interactivity" xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
+        <Grid>
+            <interactivity:Interaction.Triggers>
+                <interactivity:EventTrigger EventName="Loaded">
+                    <interactivity:InvokeCommandAction Command="{Binding MyCommand}"/>
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
+        </Grid>
         <Label DockPanel.Dock="Top" Content="{Binding Title}" FontSize="15"/>
         <TabControl DockPanel.Dock="Top" Margin="5">
             <TabItem Header="Route">

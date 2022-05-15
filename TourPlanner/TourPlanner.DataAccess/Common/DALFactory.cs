@@ -13,12 +13,17 @@ namespace TourPlanner.DataAccess.Common
     public class DALFactory
     {
         private static string assemblyName;
+        private static string apiName;
         private static Assembly dalAssembly;
+        private static Assembly apiAssembly;
         private static IDatabase database;
+        private static IRouteAccess routeAccess;
         static DALFactory()
         {
             assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
             dalAssembly = Assembly.Load(assemblyName);
+            apiName = ConfigurationManager.AppSettings["DALApiAssembly"];
+            apiAssembly = Assembly.Load(apiName);
         }
         public static IDatabase GetDatabase()
         {
@@ -36,6 +41,21 @@ namespace TourPlanner.DataAccess.Common
             string databaseClassName = assemblyName + ".Database";
             Type dbClass = dalAssembly.GetType(databaseClassName);
             return Activator.CreateInstance(dbClass,new object[] {connectionString}) as IDatabase;
+        }
+
+        public static IRouteAccess GetRouteApi()
+        {
+            if (routeAccess == null)
+                routeAccess = CreateRouteAccess();
+            return routeAccess;
+        }
+
+        private static IRouteAccess CreateRouteAccess()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["ApiKey"].ConnectionString;
+            string apiClassName = apiName + ".RouteProcessor";
+            Type apiClass = apiAssembly.GetType(apiClassName);
+            return Activator.CreateInstance(apiClass, new object[] { connectionString }) as IRouteAccess; //needs to be done through reflection, cause otherwise child class is not known in this context
         }
         public static ITourDAO CreateTourDAO()
         {

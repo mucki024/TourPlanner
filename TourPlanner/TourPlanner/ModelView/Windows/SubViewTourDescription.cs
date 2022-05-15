@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TourPlanner.Model;
+using TourPlanner.DataAccess.API;
+using TourPlanner.Logging;
+using System.Diagnostics;
 
 namespace TourPlanner
 {
@@ -80,8 +83,8 @@ namespace TourPlanner
             }
         }
 
-        private int _tourDistance;
-        public int TourDistance
+        private double _tourDistance;
+        public double TourDistance
         {
             get { return _tourDistance; }
             set
@@ -94,8 +97,8 @@ namespace TourPlanner
             }
         }
 
-        private int _estimatedTime;
-        public int EstimatedTime
+        private TimeSpan _estimatedTime;
+        public TimeSpan EstimatedTime
         {
             get { return _estimatedTime; }
             set
@@ -120,9 +123,28 @@ namespace TourPlanner
             this.Description = tour.RouteInformation;
         }
 
+        public RelayCommand MyCommand { get; set; }
+
+
+        private async Task LoadAPI()
+        {
+            ApiHelper.GetInstance();
+            //var model = await IApiProcessor.LoadData<RouteModel>("http://www.mapquestapi.com/directions/v2/route?key=xFA4sS7TC6RZk5gGZSr2vmcljK87l692&from=Wien&to=Böheimkirchen");
+
+            //logger.Debug("Hey2");
+            //logger.Debug(model.ToString());
+
+        }
+
         public SubViewTourDescription()
         {
-
+            /*
+            MyCommand = new RelayCommand(async (_) =>
+            {
+                //logger.Debug("Hey1");
+                //await LoadAPI();
+            });
+            */
         }
     }
 }
