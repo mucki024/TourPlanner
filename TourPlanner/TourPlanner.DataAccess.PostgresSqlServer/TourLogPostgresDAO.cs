@@ -19,6 +19,9 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             "(\"tid\",\"date\",\"difficulty\",\"comment\",\"time\",\"rating\")" +
             "VALUES (@tid,@date,@difficulty,@comment,@time,@rating) " +
             "RETURNING \"id\"";
+        private const string SQL_UPDATE_LOG = "UPDATE public.\"Logs\"" +
+            "SET\"date\" =@date,\"difficulty\"=@difficulty,\"comment\"=@comment,\"time\"=@time,\"rating\"=@rating)"+
+            "WHERE \"tid\" = @tid,";
 
         private IDatabase database;
 
@@ -36,6 +39,17 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             database.DefineParameter(insertCommand, "@time", DbType.Time, totalTime);
             database.DefineParameter(insertCommand, "@rating", DbType.Int32, rating);
             return GetById(database.ExecuteNonQuery(insertCommand)); // does the DB request
+        }
+        public TourLog UpdateTourLog(int tourId, string comment, int diffuclty, DateTime timestamp, TimeSpan totalTime, int rating)
+        {//defines update command & returns the updated tour logs ID
+            DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_LOG);
+            database.DefineParameter(updateCommand, "@tid", DbType.Int32, tourId);
+            database.DefineParameter(updateCommand, "@date", DbType.DateTime, timestamp);
+            database.DefineParameter(updateCommand, "@difficulty", DbType.Int32, diffuclty);
+            database.DefineParameter(updateCommand, "@comment", DbType.String, comment);
+            database.DefineParameter(updateCommand, "@time", DbType.Time, totalTime);
+            database.DefineParameter(updateCommand, "@rating", DbType.Int32, rating);
+            return GetById(database.ExecuteNonQuery(updateCommand)); // does the DB request
         }
 
         public void AddNewTourLog(TourLog tourLog)
