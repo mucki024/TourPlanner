@@ -13,15 +13,35 @@ namespace TourPlanner.Model
         public TimeSpan FormattedTime { get; set; }
         public string SessionId { get; set; }
 
+        public RouteDirectionModel()
+        {
+            BoundingBox = new RouteBoundingBoxModel();
+            Distance = 0;
+            FormattedTime = TimeSpan.Zero;
+            SessionId = "";
+        }
+
     }
     public class RouteBoundingBoxModel
     {
-        public PositionModel Ur { get; set; }
+        public PositionModel Ul { get; set; }
         public PositionModel Lr { get; set; }
+
+        public RouteBoundingBoxModel()
+        {
+            Ul = new PositionModel();
+            Lr = new PositionModel();
+        }
     }
     public class PositionModel
     {
         public double Lat { get; set; }
         public double Lng { get; set; }
+
+        public PositionModel()
+        {
+            Lat = 0;
+            Lng = 0;
+        }
     }
 }

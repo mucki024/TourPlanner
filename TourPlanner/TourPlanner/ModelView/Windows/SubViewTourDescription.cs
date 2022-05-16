@@ -111,6 +111,20 @@ namespace TourPlanner
             }
         }
 
+
+        private string _imageName = System.AppDomain.CurrentDomain.BaseDirectory +"\\images\\24.jpeg";
+        public string ImageName
+        {
+            get { return _imageName; }
+            set
+            {
+                if (_imageName != value)
+                {
+                    _imageName = value;
+                    OnPropertyChanged(nameof(ImageName));
+                }
+            }
+        }
         //is triggered by selected Tour changed
         public void displayAttributes(Tour tour)
         {

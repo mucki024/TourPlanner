@@ -17,6 +17,12 @@ namespace TourPlanner.DataAccess.API
             return _ClientApi;
         }
 
+        public static void ChangeResponseTypeToImage()
+        {
+            _ClientApi.DefaultRequestHeaders.Accept.Clear();
+            _ClientApi.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("*/*"));
+        }
+
 
     }
 }

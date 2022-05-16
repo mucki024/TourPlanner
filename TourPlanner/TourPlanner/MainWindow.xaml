@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
-        Title="Tour-Planner" Height="450" Width="500">
+        Title="Tour-Planner" Height="560" Width="550">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem  Header="_File"><MenuItem Header="Import File"/></MenuItem>
+            <MenuItem  Header="_File">
+                <MenuItem Header="Import File"/>
+            </MenuItem>
             <MenuItem  Header="_Edit"></MenuItem>
             <MenuItem  Header="_Options"></MenuItem>
             <MenuItem  Header="_Help"></MenuItem>
@@ -31,7 +33,8 @@
                     <Button Content="Modify" Margin="5" FontSize="15" Command="{Binding ChangeTour}"/>
                 </StackPanel>
                 <ListView  Margin="5" ItemsSource="{Binding TourData}" SelectedItem="{Binding SelectedTour}" >
-                    <ListView.Resources> <!-- Hides list view header-->
+                    <ListView.Resources>
+                        <!-- Hides list view header-->
                         <Style TargetType="GridViewColumnHeader">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </Style>

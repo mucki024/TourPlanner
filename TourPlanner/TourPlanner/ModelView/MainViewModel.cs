@@ -61,7 +61,8 @@ namespace TourPlanner
                 if (_selectedTour != value)
                 {
                     _selectedTour = value;
-                    DisplayTourDescription();
+                    if(_selectedTour!= null)
+                        DisplayTourDescription();
                 }
                 OnPropertyChanged(nameof(SelectedTour));
             }

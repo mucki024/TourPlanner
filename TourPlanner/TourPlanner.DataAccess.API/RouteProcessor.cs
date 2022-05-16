@@ -29,7 +29,7 @@ namespace TourPlanner.DataAccess.API
                 return;
             }
 
-            _apiUrl = _baseUrlDirection + $"?key={_apiKey}&from={tourModel.Start}&to={tourModel.Destination}";
+            _apiUrl = _baseUrlDirection + $"?key={_apiKey}&from={tourModel.Start}&to={tourModel.Destination}&unit=k";
         }
         public async Task<T> ReadData<T>()
         {

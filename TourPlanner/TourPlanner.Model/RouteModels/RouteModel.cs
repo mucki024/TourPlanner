@@ -9,6 +9,9 @@ namespace TourPlanner.Model
     public class RouteModel
     {
         public RouteDirectionModel Route { get; set; }
-
+        public RouteModel()
+        {
+            Route = new RouteDirectionModel();
+        }
     }
 }
