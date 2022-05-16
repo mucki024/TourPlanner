@@ -17,7 +17,7 @@ namespace TourPlanner.DataAccess.Common
         private static Assembly dalAssembly;
         private static Assembly apiAssembly;
         private static IDatabase database;
-        private static IRouteAccess routeAccess;
+        private static IApiAccessDAO apiAccess;
         static DALFactory()
         {
             assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
@@ -43,19 +43,19 @@ namespace TourPlanner.DataAccess.Common
             return Activator.CreateInstance(dbClass,new object[] {connectionString}) as IDatabase;
         }
 
-        public static IRouteAccess GetRouteApi()
+        public static IApiAccessDAO GetApi()
         {
-            if (routeAccess == null)
-                routeAccess = CreateRouteAccess();
-            return routeAccess;
+            if (apiAccess == null)
+                apiAccess = CreateRouteAccess();
+            return apiAccess;
         }
 
-        private static IRouteAccess CreateRouteAccess()
+        private static IApiAccessDAO CreateRouteAccess()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["ApiKey"].ConnectionString;
-            string apiClassName = apiName + ".RouteProcessor";
+            string apiClassName = apiName + ".ApiHandlerDAO";
             Type apiClass = apiAssembly.GetType(apiClassName);
-            return Activator.CreateInstance(apiClass, new object[] { connectionString }) as IRouteAccess; //needs to be done through reflection, cause otherwise child class is not known in this context
+            return Activator.CreateInstance(apiClass, new object[] { connectionString }) as IApiAccessDAO; //needs to be done through reflection, cause otherwise child class is not known in this context
         }
         public static ITourDAO CreateTourDAO()
         {

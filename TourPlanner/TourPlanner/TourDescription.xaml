@@ -18,7 +18,8 @@
         <Label DockPanel.Dock="Top" Content="{Binding Title}" FontSize="15"/>
         <TabControl DockPanel.Dock="Top" Margin="5" SelectedIndex="0">
             <TabItem Header="Route" Height="22" Margin="-2,0,-2,0" VerticalAlignment="Bottom">
-                <Image HorizontalAlignment="Left" Width = "640" Height="300" Source="{Binding ImageName}"/>
+                <Image HorizontalAlignment="Left" Width = "640" Height="300" Source="{Binding ImageName}">
+                </Image>
             </TabItem>
             <TabItem Header="Description">
                 <Grid>

@@ -10,7 +10,7 @@ using TourPlanner.DataAccess.Common;
 
 namespace TourPlanner.DataAccess.API
 {
-    public class RouteProcessor: IRouteAccess
+    public class RouteProcessor
     {
         private string _baseUrlDirection = "http://www.mapquestapi.com/directions/v2/route";
         private string _apiUrl="";
@@ -33,7 +33,9 @@ namespace TourPlanner.DataAccess.API
         }
         public async Task<T> ReadData<T>()
         {
-            using (HttpResponseMessage resp = await ApiHelper.GetInstance().GetAsync(_apiUrl))
+            HttpClient curInst = ApiHelper.GetInstance();
+            ApiHelper.ChangeResponseTypeToJSON();
+            using (HttpResponseMessage resp = await curInst.GetAsync(_apiUrl))
             {
                 if (resp.IsSuccessStatusCode)
                 {

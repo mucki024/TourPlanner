@@ -112,7 +112,7 @@ namespace TourPlanner
         }
 
 
-        private string _imageName = System.AppDomain.CurrentDomain.BaseDirectory +"\\images\\24.jpeg";
+        private string _imageName = "";
         public string ImageName
         {
             get { return _imageName; }
@@ -125,6 +125,8 @@ namespace TourPlanner
                 }
             }
         }
+
+
         //is triggered by selected Tour changed
         public void displayAttributes(Tour tour)
         {
@@ -135,10 +137,11 @@ namespace TourPlanner
             this.TourDistance = tour.TourDistance;
             this.EstimatedTime = tour.EstimatedTime;
             this.Description = tour.RouteInformation;
+            this.ImageName = System.AppDomain.CurrentDomain.BaseDirectory + $"\\images\\{tour.TourID}.jpeg";
         }
 
         public RelayCommand MyCommand { get; set; }
-
+       // public RelayCommand FallbackImage { get; set; }
 
         private async Task LoadAPI()
         {
@@ -152,6 +155,12 @@ namespace TourPlanner
 
         public SubViewTourDescription()
         {
+            /*
+            FallbackImage = new RelayCommand((_) =>
+            {
+
+            });
+            */
             /*
             MyCommand = new RelayCommand(async (_) =>
             {

@@ -27,7 +27,7 @@ namespace TourPlanner.BusinessLayer
 
         public async Task addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
-            
+            /*
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             IRouteAccess routeAcces = DALFactory.GetRouteApi();
             routeAcces.PrepareUrl(tourModel);
@@ -40,6 +40,15 @@ namespace TourPlanner.BusinessLayer
             IRouteAccess imageAccess = new MapProcessor("xFA4sS7TC6RZk5gGZSr2vmcljK87l692", tmpTour.TourID);
             imageAccess.PrepareUrl(model);
             await imageAccess.ReadData<RouteModel>();
+            */
+
+            ITourDAO tourDAO = DALFactory.CreateTourDAO();
+            IApiAccessDAO accessDao = DALFactory.GetApi();
+            tourModel = await accessDao.GetRouteInfo(tourModel);
+            Tour tmpTour = tourDAO.AddNewTour(tourModel);
+
+            await accessDao.DownloadImage(tmpTour.TourID);
+
         }
         public bool addNewLog(TourLog tourLog)
         {

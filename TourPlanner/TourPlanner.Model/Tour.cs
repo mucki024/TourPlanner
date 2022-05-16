@@ -16,6 +16,7 @@ namespace TourPlanner.Model
         public double TourDistance { get; set; }
         public TimeSpan EstimatedTime { get; set; }
         public string RouteInformation { get; set; }
+        public string ImagePath { get; set; }
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 

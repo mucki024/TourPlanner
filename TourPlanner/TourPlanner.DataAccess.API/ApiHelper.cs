@@ -11,8 +11,6 @@ namespace TourPlanner.DataAccess.API
             if (_ClientApi == null)
             {
                 _ClientApi = new HttpClient();
-                _ClientApi.DefaultRequestHeaders.Accept.Clear();
-                _ClientApi.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             }
             return _ClientApi;
         }
@@ -23,6 +21,11 @@ namespace TourPlanner.DataAccess.API
             _ClientApi.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("*/*"));
         }
 
+        public static void ChangeResponseTypeToJSON()
+        {
+            _ClientApi.DefaultRequestHeaders.Accept.Clear();
+            _ClientApi.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        }
 
     }
 }
