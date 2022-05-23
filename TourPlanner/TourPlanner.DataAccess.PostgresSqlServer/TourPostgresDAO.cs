@@ -79,8 +79,8 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                         (string)reader["from"],
                         (string)reader["to"],
                         (string)reader["transport_type"],
-                        (int)reader["distance"],
-                        (int)reader["estimated_length"]//maybe need to do as string in db if not work right
+                        (double)reader["distance"],
+                        (TimeSpan)reader["estimated_length"]//maybe need to do as string in db if not work right
                         );
                     toAdd.AddLogs(logDAO.GetLogsForTour((int)reader["id"])); //it should really be an int in code but there are references on it
                     TourList.Add(toAdd);
