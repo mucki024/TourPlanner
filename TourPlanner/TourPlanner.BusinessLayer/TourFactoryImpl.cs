@@ -8,6 +8,7 @@ using TourPlanner.Model;
 using TourPlanner.DataAccess.Common;
 using TourPlanner.DataAccess.DAO;
 using TourPlanner.DataAccess.API;
+using System.IO;
 
 namespace TourPlanner.BusinessLayer
 {
@@ -27,28 +28,12 @@ namespace TourPlanner.BusinessLayer
 
         public async Task addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
-            /*
-            ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            IRouteAccess routeAcces = DALFactory.GetRouteApi();
-            routeAcces.PrepareUrl(tourModel);
-            RouteModel model = await routeAcces.ReadData<RouteModel>(); //Todo: needs to be done in DAL
-
-            tourModel.TourDistance = model.Route.Distance;
-            tourModel.EstimatedTime = model.Route.FormattedTime;
-            Tour tmpTour = tourDAO.AddNewTour(tourModel);
-            
-            IRouteAccess imageAccess = new MapProcessor("xFA4sS7TC6RZk5gGZSr2vmcljK87l692", tmpTour.TourID);
-            imageAccess.PrepareUrl(model);
-            await imageAccess.ReadData<RouteModel>();
-            */
-
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             IApiAccessDAO accessDao = DALFactory.GetApi();
             tourModel = await accessDao.GetRouteInfo(tourModel);
             Tour tmpTour = tourDAO.AddNewTour(tourModel);
 
             await accessDao.DownloadImage(tmpTour.TourID);
-
         }
         public bool addNewLog(TourLog tourLog)
         {
@@ -61,6 +46,15 @@ namespace TourPlanner.BusinessLayer
         {
             ITourLogDAO tourLogDAO = DALFactory.CreateTourLogDAO();
             return tourLogDAO.GetLogsForTour(tourId);
+        }
+
+        public string checkImage(string path)
+        {
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            return System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
         }
     }
 }

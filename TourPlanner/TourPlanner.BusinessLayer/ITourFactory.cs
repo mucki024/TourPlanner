@@ -11,5 +11,6 @@ namespace TourPlanner.BusinessLayer
         IEnumerable<Tour> getAllTours();
         IEnumerable<TourLog> getAllLogs(int tourId);
         IEnumerable<Tour> searchTour(string searchterm);
+        string checkImage(string path);
     }
 }

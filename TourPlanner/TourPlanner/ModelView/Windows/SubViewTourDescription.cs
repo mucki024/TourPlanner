@@ -8,6 +8,7 @@ using TourPlanner.Model;
 using TourPlanner.DataAccess.API;
 using TourPlanner.Logging;
 using System.Diagnostics;
+using TourPlanner.BusinessLayer;
 
 namespace TourPlanner
 {
@@ -112,7 +113,7 @@ namespace TourPlanner
         }
 
 
-        private string _imageName = "";
+        private string _imageName = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
         public string ImageName
         {
             get { return _imageName; }
@@ -120,7 +121,7 @@ namespace TourPlanner
             {
                 if (_imageName != value)
                 {
-                    _imageName = value;
+                    _imageName = TourFactory.GetInstance().checkImage(value); //return fallback image => only to fix xaml binding exceptions
                     OnPropertyChanged(nameof(ImageName));
                 }
             }
@@ -141,7 +142,6 @@ namespace TourPlanner
         }
 
         public RelayCommand MyCommand { get; set; }
-       // public RelayCommand FallbackImage { get; set; }
 
         private async Task LoadAPI()
         {
