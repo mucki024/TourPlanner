@@ -17,11 +17,9 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             "(\"name\",\"description\",\"from\",\"to\",\"transport_type\",\"estimated_length\",\"distance\")" +
             "VALUES (@name,@description,@from,@to,@transport_type,@estimated_length,@distance) " +
             "RETURNING \"id\"";
-        private const string SQL_UPDATE_TOUR = "UPDATE public.\"Tours\""+
-            "SET \"name\"=@name,\"description\"=@description,\"from\"=@from,\"to\"=@to,"+
-                 "\"transport_type\"=@transport_type,\"estimated_length\"=@estimated_length,\"distance\"=@distance" +
-            "WHERE id=@Id" +
-            "RETURNING \"id\"";
+        private const string SQL_UPDATE_TOUR = "UPDATE public.\"Tours\"" +
+            "SET name = @name, description = @description "+
+            "WHERE id=@id";
         private const string SQL_FULL_TEXT_SEARCH = "SELECT * FROM public.fulltextsearch(@param)";
         private IDatabase database;
         private ITourLogDAO logDAO;
@@ -46,15 +44,11 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
         public Tour UpdateTour(Tour tour)
         {
             DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_TOUR);
-            database.DefineParameter(updateCommand, "@id", DbType.Int32, tour.TourID);
-            database.DefineParameter(updateCommand, "@name", DbType.String, tour.Tourname);
-            database.DefineParameter(updateCommand, "@from", DbType.String, tour.Start);
-            database.DefineParameter(updateCommand, "@to", DbType.String, tour.Destination);
-            database.DefineParameter(updateCommand, "@transport_type", DbType.String, tour.TransportType);
+            database.DefineParameter(updateCommand, "@name", DbType.String, tour.Tourname);          
             database.DefineParameter(updateCommand, "@description", DbType.String, tour.RouteInformation);
-            database.DefineParameter(updateCommand, "@estimated_length", DbType.Time, tour.EstimatedTime); //initially set as 0 cause not sure how we will do it yet
-            database.DefineParameter(updateCommand, "@distance", DbType.Double, tour.TourDistance); //initially set as 0 cause not sure how we will do it yet
-            return FindById(database.ExecuteNonQuery(updateCommand)); // does the DB request
+            database.DefineParameter(updateCommand, "@id", DbType.Int32, tour.TourID);
+            database.ExecuteNonQuery(updateCommand);
+            return FindById(tour.TourID); // does the DB request
         }
 
         public IEnumerable<Tour> SearchForTours(string param)
