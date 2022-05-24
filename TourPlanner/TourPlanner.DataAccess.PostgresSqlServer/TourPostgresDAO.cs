@@ -22,6 +22,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                  "\"transport_type\"=@transport_type,\"estimated_length\"=@estimated_length,\"distance\"=@distance" +
             "WHERE id=@Id" +
             "RETURNING \"id\"";
+        private const string SQL_FULL_TEXT_SEARCH = "SELECT * FROM public.fulltextsearch(@param)";
         private IDatabase database;
         private ITourLogDAO logDAO;
 
@@ -56,12 +57,12 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             return FindById(database.ExecuteNonQuery(updateCommand)); // does the DB request
         }
 
-        /*
-        public void AddNewTour(Tour tour)
+        public IEnumerable<Tour> SearchForTours(string param)
         {
-            AddNewTour(tour);
+            DbCommand searchTourCommand = database.CreateCommand(SQL_FULL_TEXT_SEARCH);
+            database.DefineParameter(searchTourCommand, "@param", DbType.String, param);
+            return QueryFromDB(searchTourCommand);
         }
-        */
 
         public Tour FindById(int tourId)
         {

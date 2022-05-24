@@ -11,7 +11,9 @@ namespace TourPlanner.DataAccess.DAO
     {
         Tour FindById(int tourId);
         Tour AddNewTour(Tour tour);
+        Tour UpdateTour(Tour tour);
         //void AddNewTour(Tour tour); //maybe remove if not needed depends on wpf impl.
         IEnumerable<Tour> GetTours();
+        public IEnumerable<Tour> SearchForTours(string tour);
     }
 }
