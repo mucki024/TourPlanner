@@ -13,8 +13,22 @@ using System;
 
 namespace TourPlanner
 {
+    public struct ViewData //struct to send data via subscriber pattern to mainview
+    {
+        public ViewData(Tour tour,bool isCreateTour)
+        {
+            TourData = tour;
+            IsCreateTour = isCreateTour;
+        }
+
+        public Tour TourData { get; }
+        public bool IsCreateTour { get; }
+    }
     public class SubWindowViewTour : ViewModelBase
     {
+        public  int TourID { get; set; }
+        public double TourDistance { get; set; }
+        public TimeSpan EstimatedTime { get; set; }
         private string _tourname;
         public string Tourname
         {
@@ -85,17 +99,40 @@ namespace TourPlanner
             }
         }
 
-        public event EventHandler<Tour> OnSubmitClicked;
+        private bool _isNewTour; //val to check which form it is => modify or create
+        public bool IsNewTour
+        {
+            get { return _isNewTour;  }
+            set{ _isNewTour = value; }
+        }
+        private Visibility _AttributeVisibility; //cut start and end destination 
+        public Visibility AttributeVisibility
+        {
+            get { return _AttributeVisibility; }
+            set
+            {
+                _AttributeVisibility = value;
+                OnPropertyChanged(nameof(AttributeVisibility));
+            }
+        }
+        public event EventHandler<ViewData> OnSubmitClicked;
         public RelayCommand Submit { get; }
         public Action CloseAction { get; set; }
 
         public SubWindowViewTour()
         {
-            //ResetBindings();
             this.Submit = new RelayCommand((_) =>
             {
-                Tour tmpTour = new Tour(Tourname, Start, Destination, Description, TransportType);
-                OnSubmitClicked?.Invoke(this, tmpTour);
+                Tour tmpTour;
+                if (IsNewTour)
+                {
+                    tmpTour = new Tour(Tourname, Start, Destination, Description, TransportType);
+                }
+                else
+                {
+                    tmpTour = new Tour(TourID, Tourname, Description, Start, Destination, TransportType, TourDistance, EstimatedTime);
+                }
+                OnSubmitClicked?.Invoke(this, new ViewData(tmpTour,IsNewTour));
                 CloseAction();
             });
         }

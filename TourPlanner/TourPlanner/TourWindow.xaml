@@ -23,17 +23,17 @@
             <Label Content="Description" />
             <TextBox Text="{Binding Description}"/>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
+            <Label Content="TransportType" />
+            <TextBox Text="{Binding TransportType}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Start" />
             <TextBox Text="{Binding Start}"/>
         </DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Destination" />
             <TextBox Text="{Binding Destination}"/>
-        </DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
-            <Label Content="TransportType" />
-            <TextBox Text="{Binding TransportType}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <Button  x:Name="submit" Content = "Submit"

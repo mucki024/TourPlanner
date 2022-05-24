@@ -120,11 +120,12 @@ namespace TourPlanner
             DeleteTour = new RelayCommand((_) =>
             {
                 if (SelectedTour != null)
+                {
                     TourData.Remove(SelectedTour);
+                    //Todo call BIZ 
+                }
             });
 
-            //Todo: two Subwindows required => button behaivoiur different => one subview for input 
-            //Todo: view logic should not be in Viewmodel? 
             ChangeTour = new RelayCommand((_) =>
             {
                 if (SelectedTour != null)
@@ -139,10 +140,13 @@ namespace TourPlanner
         {
             _subWindowTour = viewModelTour;
 
-            viewModelTour.OnSubmitClicked += async (_, TourClass) =>
+            viewModelTour.OnSubmitClicked += async (_, fullTourData) =>
             {
                 // call the BIZ-layer
-                await _tourfactory.addNewTour(TourClass);
+                if(fullTourData.IsCreateTour)
+                    await _tourfactory.addNewTour(fullTourData.TourData);
+                if (!fullTourData.IsCreateTour)
+                    _tourfactory.modifyTour(fullTourData.TourData);
                 FillToursToCollection();
             };
         }

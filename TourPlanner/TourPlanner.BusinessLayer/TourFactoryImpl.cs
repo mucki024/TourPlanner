@@ -48,6 +48,12 @@ namespace TourPlanner.BusinessLayer
             return tourLogDAO.GetLogsForTour(tourId);
         }
 
+        public void modifyTour(Tour tourModel)
+        {
+            ITourDAO tourDAO = DALFactory.CreateTourDAO();
+            tourDAO.UpdateTour(tourModel);
+        }
+
         public string checkImage(string path)
         {
             if (File.Exists(path))

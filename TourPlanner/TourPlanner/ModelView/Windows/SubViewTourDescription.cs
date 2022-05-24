@@ -141,6 +141,7 @@ namespace TourPlanner
             this.ImageName = System.AppDomain.CurrentDomain.BaseDirectory + $"\\images\\{tour.TourID}.jpeg";
         }
 
+
         public RelayCommand MyCommand { get; set; }
 
         private async Task LoadAPI()

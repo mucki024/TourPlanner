@@ -20,19 +20,7 @@ namespace TourPlanner.Model
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 
-        /*
-        public Tour(string tourname)
-        {
-            TourID = 1;
-            Tourname = tourname;
-            Start = "A";
-            Destination = "B";
-            TransportType = "f";
-            TourDistance = 0;
-            EstimatedTime = 0;
-            RouteInformation = "Nope";
-        }
-        */
+
         public Tour(string tourname, string start, string destination, string description, string transportType)
         {
             TourID = 1;
@@ -44,7 +32,6 @@ namespace TourPlanner.Model
             TourDistance = 0;
             EstimatedTime = TimeSpan.Zero;
         }
-        //Objekt irgendwie überarbeiten
         
         public Tour(int tourId,string tourname, string description, string from, string to, string transportType,double distance, TimeSpan EstimatedTime)
         {
