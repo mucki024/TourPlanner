@@ -60,7 +60,7 @@ namespace TourPlanner
             _viewModel.EstimatedTime = tourAttributes.EstimatedTime;
             _viewModel.AttributeVisibility = System.Windows.Visibility.Hidden;
             _viewModel.IsNewTour = false;
-            if (_viewModel.CloseAction == null)  //property to close window
+            //if (_viewModel.CloseAction == null)  //property to close window
                 _viewModel.CloseAction = new Action(() => window.Close());
             window.ShowDialog();
         }

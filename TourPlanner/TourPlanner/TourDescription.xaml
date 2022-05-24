@@ -27,9 +27,7 @@
             <TabItem Header="Description">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="17.326"/>
-                        <ColumnDefinition Width="101.731"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.ColumnSpan="2">
                         <DockPanel>
