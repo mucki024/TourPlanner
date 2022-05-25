@@ -3,12 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:local="clr-namespace:TourPlanner" 
+        xmlns:pro="clr-namespace:TourPlanner.Model;assembly=TourPlanner.Model"
         mc:Ignorable="d"
         Title="TourWindow" Height="400" Width="300">
     <Window.DataContext>
         <local:SubWindowViewTour/>
     </Window.DataContext>
+    <Window.Resources>
+        <ObjectDataProvider x:Key="GetDataFromEnum"
+                        ObjectType="{x:Type sys:Enum}"
+                        MethodName="GetValues">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="pro:TransportType" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
     <DockPanel>
         <DockPanel DockPanel.Dock="Top" >
             <StackPanel HorizontalAlignment="Center">
@@ -25,7 +37,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="TransportType" />
-            <TextBox Text="{Binding TransportType}"/>
+            <ComboBox ItemsSource="{Binding Source={StaticResource GetDataFromEnum}}" SelectedValue="{Binding TransportType}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Start" />

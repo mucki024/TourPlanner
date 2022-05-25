@@ -28,8 +28,8 @@ namespace TourPlanner.DataAccess.API
                 //logging possible
                 return;
             }
-
-            _apiUrl = _baseUrlDirection + $"?key={_apiKey}&from={tourModel.Start}&to={tourModel.Destination}&unit=k";
+            //API does not take different values for TransportMode => even though stated in documentation
+            _apiUrl = _baseUrlDirection + $"?key={_apiKey}&from={tourModel.Start}&to={tourModel.Destination}&unit=k&transportMode={tourModel.TransportType.ToString()}";
         }
         public async Task<T> ReadData<T>()
         {

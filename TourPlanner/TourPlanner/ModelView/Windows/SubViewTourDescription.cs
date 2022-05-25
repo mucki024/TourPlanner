@@ -70,8 +70,8 @@ namespace TourPlanner
             }
         }
 
-        private string _transportType;
-        public string TransportType
+        private TransportType _transportType;
+        public TransportType TransportType
         {
             get { return _transportType; }
             set
@@ -112,6 +112,34 @@ namespace TourPlanner
             }
         }
 
+        private int _popularity;
+        public int Popularity
+        {
+            get { return _popularity; }
+            set
+            {
+                if (_popularity != value)
+                {
+                    _popularity = value;
+                    OnPropertyChanged(nameof(Popularity));
+                }
+            }
+        }
+
+        private ChildFriendliness _childFriendl;
+        public ChildFriendliness ChildFriendl
+        {
+            get { return _childFriendl; }
+            set
+            {
+                if (_childFriendl != value)
+                {
+                    _childFriendl = value;
+                    OnPropertyChanged(nameof(ChildFriendl));
+                }
+            }
+        }
+
 
         private string _imageName = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
         public string ImageName
@@ -139,11 +167,18 @@ namespace TourPlanner
             this.EstimatedTime = tour.EstimatedTime;
             this.Description = tour.RouteInformation;
             this.ImageName = System.AppDomain.CurrentDomain.BaseDirectory + $"\\images\\{tour.TourID}.jpeg";
+            calculateAdditinalData(tour);
         }
 
+        private void calculateAdditinalData(Tour tour)
+        {
+            this.Popularity = CalculatePopHelper.CheckPopularity(tour.LogList.Count());
+            this.ChildFriendl = CalculateChildFHelper.CheckChildfriendlíness(tour.LogList, tour.TourDistance);
+        }
 
         public RelayCommand MyCommand { get; set; }
 
+        /*
         private async Task LoadAPI()
         {
             ApiHelper.GetInstance();
@@ -153,7 +188,7 @@ namespace TourPlanner
             //logger.Debug(model.ToString());
 
         }
-
+        */
         public SubViewTourDescription()
         {
             /*

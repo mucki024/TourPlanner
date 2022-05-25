@@ -44,7 +44,7 @@ namespace TourPlanner
 
             DeleteLog = new RelayCommand((_) =>
             {
-                //_tourfactory.deleteTourLog(SelectedTourLog);
+                _tourfactory.deleteTourLog(SelectedTourLog);
             });
             FillLogsToCollection();
             viewModel.OnSubmitClicked += (_, TourClass) =>

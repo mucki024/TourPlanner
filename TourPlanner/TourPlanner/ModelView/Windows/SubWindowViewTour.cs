@@ -85,8 +85,8 @@ namespace TourPlanner
             }
         }
 
-        private string _transportType;
-        public string TransportType
+        private TransportType _transportType;
+        public TransportType TransportType
         {
             get { return _transportType; }
             set
@@ -130,7 +130,7 @@ namespace TourPlanner
                 }
                 else
                 {
-                    tmpTour = new Tour(TourID, Tourname, Description, Start, Destination, TransportType, TourDistance, EstimatedTime);
+                    tmpTour = new Tour(TourID, Tourname, Description, Start, Destination, (int)TransportType, TourDistance, EstimatedTime);
                 }
                 OnSubmitClicked?.Invoke(this, new ViewData(tmpTour,IsNewTour));
                 CloseAction();

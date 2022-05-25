@@ -6,22 +6,32 @@ using System.Threading.Tasks;
 
 namespace TourPlanner.Model
 {
+    public enum TransportType
+    {
+        AUTO, WALKING, BICYCLE
+    }
+    public enum ChildFriendliness
+    {
+        ChildFriendly, OnlyForAdults, notCalculated
+    }
     public class Tour
     {
-        public int TourID { get; set; } //why is this string?
+        public int TourID { get; set; } 
         public string Tourname { get; set; }
         public string Start { get; set; }
         public string Destination { get; set; }
-        public string TransportType { get; set; }
+        public TransportType TransportType { get; set; }
         public double TourDistance { get; set; }
         public TimeSpan EstimatedTime { get; set; }
         public string RouteInformation { get; set; }
         public string ImagePath { get; set; }
+        public int Popularity { get; set; }
+        public ChildFriendliness ChildFriendliness { get; set; }
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 
 
-        public Tour(string tourname, string start, string destination, string description, string transportType)
+        public Tour(string tourname, string start, string destination, string description, TransportType transportType)
         {
             TourID = 1;
             Tourname = tourname;
@@ -33,14 +43,14 @@ namespace TourPlanner.Model
             EstimatedTime = TimeSpan.Zero;
         }
         
-        public Tour(int tourId,string tourname, string description, string from, string to, string transportType,double distance, TimeSpan EstimatedTime)
+        public Tour(int tourId,string tourname, string description, string from, string to, int transportType,double distance, TimeSpan EstimatedTime)
         {
             this.TourID = tourId;
             this.Tourname = tourname;
             this.RouteInformation = description;
             this.Destination = to;
             this.Start = from;
-            this.TransportType = transportType;
+            this.TransportType = (TransportType)transportType;
             this.EstimatedTime = EstimatedTime;
             this.TourDistance = distance;
 

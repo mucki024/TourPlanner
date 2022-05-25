@@ -35,7 +35,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             database.DefineParameter(insertCommand, "@name", DbType.String, tour.Tourname);
             database.DefineParameter(insertCommand, "@from", DbType.String, tour.Start);
             database.DefineParameter(insertCommand, "@to", DbType.String, tour.Destination);
-            database.DefineParameter(insertCommand, "@transport_type", DbType.String, tour.TransportType);
+            database.DefineParameter(insertCommand, "@transport_type", DbType.Int32, (int)tour.TransportType);
             database.DefineParameter(insertCommand, "@description", DbType.String, tour.RouteInformation);
             database.DefineParameter(insertCommand, "@estimated_length", DbType.Time, tour.EstimatedTime); //initially set as 0 cause not sure how we will do it yet
             database.DefineParameter(insertCommand, "@distance", DbType.Double, tour.TourDistance); //initially set as 0 cause not sure how we will do it yet
@@ -90,13 +90,12 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                         (string)reader["description"],
                         (string)reader["from"],
                         (string)reader["to"],
-                        (string)reader["transport_type"],
+                        (int)reader["transport_type"],
                         (double)reader["distance"],
-                        (TimeSpan)reader["estimated_length"]//maybe need to do as string in db if not work right
+                        (TimeSpan)reader["estimated_length"]
                         );
-                    toAdd.AddLogs(logDAO.GetLogsForTour((int)reader["id"])); //it should really be an int in code but there are references on it
+                    toAdd.AddLogs(logDAO.GetLogsForTour((int)reader["id"]));
                     TourList.Add(toAdd);
-
                 }
             }
             return TourList; //returns all of them. 

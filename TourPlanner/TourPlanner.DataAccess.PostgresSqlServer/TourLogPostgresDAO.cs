@@ -22,7 +22,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
         private const string SQL_UPDATE_LOG = "UPDATE public.\"Logs\"" +
             "SET\"date\" =@date,\"difficulty\"=@difficulty,\"comment\"=@comment,\"time\"=@time,\"rating\"=@rating)"+
             "WHERE \"tid\" = @tid,";
-
+        private const string SQL_GET_ROW_COUNT = "SELECT  count(*) FROM \"Logs\"";
         private IDatabase database;
 
         public TourLogPostgresDAO() //Factory Based Constructor
@@ -57,10 +57,6 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             return true;
         }
 
-        public void AddNewTourLog(TourLog tourLog)
-        {
-            throw new NotImplementedException();
-        }
 
         public TourLog GetById(int tourLogId) //find in DB by logid
         {

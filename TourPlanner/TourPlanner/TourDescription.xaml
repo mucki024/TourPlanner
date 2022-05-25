@@ -54,6 +54,14 @@
                             <Label Content="Route Information:"></Label>
                             <Label Content="{Binding Description}"></Label>
                         </DockPanel>
+                        <DockPanel>
+                            <Label Content="Popularity:"></Label>
+                            <Label Content="{Binding Popularity}"></Label>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Content="Child-Friendliness:"></Label>
+                            <Label Content="{Binding ChildFriendl}"></Label>
+                        </DockPanel>
                     </StackPanel>
                 </Grid>
             </TabItem>

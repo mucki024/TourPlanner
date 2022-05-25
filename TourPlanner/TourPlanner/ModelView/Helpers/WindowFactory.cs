@@ -27,7 +27,7 @@ namespace TourPlanner
             _viewModel.Description = "";
             _viewModel.Start = "";
             _viewModel.Destination = "";
-            _viewModel.TransportType = "";
+            _viewModel.TransportType = TransportType.WALKING;
             _viewModel.IsNewTour = true;
             _viewModel.AttributeVisibility = System.Windows.Visibility.Visible;
             //if (_viewModel.CloseAction == null)  //property to close window
