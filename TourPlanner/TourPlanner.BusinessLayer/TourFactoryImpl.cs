@@ -22,8 +22,8 @@ namespace TourPlanner.BusinessLayer
         public IEnumerable<Tour> searchTour(string searchterm)
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
-            IEnumerable<Tour> tours = tourDAO.GetTours(); //specific function is only for ID PK so we need to do it like that
-            return tours.Where(x => x.Tourname.Contains(searchterm));
+            //IEnumerable<Tour> tours = tourDAO.GetTours(); //specific function is only for ID PK so we need to do it like that            
+            return tourDAO.SearchForTours(searchterm);
         }
 
         public async Task addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
