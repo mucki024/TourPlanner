@@ -40,16 +40,21 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             database.DefineParameter(insertCommand, "@rating", DbType.Int32, rating);
             return GetById(database.ExecuteNonQuery(insertCommand)); // does the DB request
         }
-        public TourLog UpdateTourLog(int tourId, string comment, int diffuclty, DateTime timestamp, TimeSpan totalTime, int rating)
+        public TourLog UpdateTourLog(TourLog model)
         {//defines update command & returns the updated tour logs ID
             DbCommand updateCommand = database.CreateCommand(SQL_UPDATE_LOG);
-            database.DefineParameter(updateCommand, "@tid", DbType.Int32, tourId);
-            database.DefineParameter(updateCommand, "@date", DbType.DateTime, timestamp);
-            database.DefineParameter(updateCommand, "@difficulty", DbType.Int32, diffuclty);
-            database.DefineParameter(updateCommand, "@comment", DbType.String, comment);
-            database.DefineParameter(updateCommand, "@time", DbType.Time, totalTime);
-            database.DefineParameter(updateCommand, "@rating", DbType.Int32, rating);
+            database.DefineParameter(updateCommand, "@tid", DbType.Int32, model.TourID);
+            database.DefineParameter(updateCommand, "@date", DbType.DateTime, model.Timestamp);
+            database.DefineParameter(updateCommand, "@difficulty", DbType.Int32, (int)model.Difficulty);
+            database.DefineParameter(updateCommand, "@comment", DbType.String, model.Comment);
+            database.DefineParameter(updateCommand, "@time", DbType.Time, model.TotalTime);
+            database.DefineParameter(updateCommand, "@rating", DbType.Int32, model.Rating);
             return GetById(database.ExecuteNonQuery(updateCommand)); // does the DB request
+        }
+
+        public bool DeleteTourLog(TourLog model)
+        {
+            return true;
         }
 
         public void AddNewTourLog(TourLog tourLog)

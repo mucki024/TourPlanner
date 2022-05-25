@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,23 @@ namespace TourPlanner
 {
     public class SubViewTourLogs : ViewModelBase
     {
-        public ObservableCollection<TourLog> TourLogData { get; } = new ObservableCollection<TourLog>();
+        public ObservableCollection<EditableTourLogModel> TourLogData { get; } = new ObservableCollection<EditableTourLogModel>();
         private ITourFactory _tourfactory;
         private int _tourID = -1;
+
+        private EditableTourLogModel _selectedTourLog;
+        public EditableTourLogModel SelectedTourLog
+        {
+            get { return _selectedTourLog; }
+            set
+            {
+                if (_selectedTourLog != value)
+                {
+                    _selectedTourLog = value;
+                    OnPropertyChanged(nameof(SelectedTourLog));
+                }
+            }
+        }
 
         public RelayCommand AddLog { get; }
         public RelayCommand DeleteLog { get; }
@@ -26,12 +41,18 @@ namespace TourPlanner
             {
                 winFac.CreateLogWindow(_tourID);
             });
+
+            DeleteLog = new RelayCommand((_) =>
+            {
+                //_tourfactory.deleteTourLog(SelectedTourLog);
+            });
             FillLogsToCollection();
             viewModel.OnSubmitClicked += (_, TourClass) =>
             {
                 _tourfactory.addNewLog(TourClass);
                 FillLogsToCollection();
             };
+
         }
         private void FillLogsToCollection()
         {
@@ -40,7 +61,13 @@ namespace TourPlanner
                 return;
             foreach (TourLog item in _tourfactory.getAllLogs(_tourID))
             {
-                TourLogData.Add(item);
+                EditableTourLogModel tmp = new EditableTourLogModel(item.TourID,item.Comment, (int)item.Difficulty,item.Timestamp,item.TotalTime,item.Rating);
+                TourLogData.Add(tmp);
+                tmp.OnChangeOfTourLog += (_, model) =>
+                {
+                    _tourfactory.modifyTourLog(model);
+                    FillLogsToCollection();
+                };
             }
         }
 

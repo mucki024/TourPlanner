@@ -53,6 +53,21 @@ namespace TourPlanner.BusinessLayer
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             tourDAO.UpdateTour(tourModel);
         }
+        public void modifyTourLog(TourLog tourModel)
+        {
+            ITourLogDAO tourLogDAO = DALFactory.CreateTourLogDAO();
+            tourLogDAO.UpdateTourLog(tourModel);
+        }
+        public void deleteTour(Tour tourModel)
+        {
+            ITourDAO tourDAO = DALFactory.CreateTourDAO();
+            tourDAO.DeleteTour(tourModel);
+        }
+        public void deleteTourLog(TourLog tourModel)
+        {
+            ITourLogDAO tourLogDAO = DALFactory.CreateTourLogDAO();
+            tourLogDAO.DeleteTourLog(tourModel);
+        }
 
         public string checkImage(string path)
         {

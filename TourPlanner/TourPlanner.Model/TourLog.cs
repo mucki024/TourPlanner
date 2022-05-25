@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +21,7 @@ namespace TourPlanner.Model
         public string DateOnly { get; set; }
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
+
         public TourLog(int id,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
         { //basic constructor for the TourLogDAO
             this.TourID = id;

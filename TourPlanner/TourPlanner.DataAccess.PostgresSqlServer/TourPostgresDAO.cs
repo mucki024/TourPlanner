@@ -51,6 +51,11 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             return FindById(tour.TourID); // does the DB request
         }
 
+        public bool DeleteTour(Tour model)
+        {
+            return true;
+        }
+
         public IEnumerable<Tour> SearchForTours(string param)
         {
             DbCommand searchTourCommand = database.CreateCommand(SQL_FULL_TEXT_SEARCH);
