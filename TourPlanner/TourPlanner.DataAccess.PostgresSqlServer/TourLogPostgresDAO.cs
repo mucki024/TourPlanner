@@ -22,6 +22,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
         private const string SQL_UPDATE_LOG = "UPDATE public.\"Logs\"" +
             "SET\"date\" =@date,\"difficulty\"=@difficulty,\"comment\"=@comment,\"time\"=@time,\"rating\"=@rating "+
             "WHERE \"tid\" = @tid";
+        private const string SQL_DELETE_LOG = "DELETE FROM public.\"Logs\"WHERE id=@Id";
         private const string SQL_GET_ROW_COUNT = "SELECT  count(*) FROM \"Logs\"";
         private IDatabase database;
 
@@ -54,6 +55,9 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
 
         public bool DeleteTourLog(TourLog model)
         {
+            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_LOG);
+            database.DefineParameter(deleteCommand, "@id", DbType.String, model.TourID);
+            database.ExecuteNonQuery(deleteCommand);
             return true;
         }
 
