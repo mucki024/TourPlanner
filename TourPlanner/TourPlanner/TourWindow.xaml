@@ -29,7 +29,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Tourname" />
-            <TextBox Text="{Binding Tourname}" />
+            <TextBox Text="{Binding Tourname,ValidatesOnDataErrors=True}" />
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Description" />
@@ -41,16 +41,16 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Start" />
-            <TextBox Text="{Binding Start}"/>
+            <TextBox Text="{Binding Start, ValidatesOnDataErrors=True}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Destination" />
-            <TextBox Text="{Binding Destination}"/>
+            <TextBox Text="{Binding Destination, ValidatesOnDataErrors=True}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <Button  x:Name="submit" Content = "Submit"
             HorizontalAlignment = "Center" Margin = "0,0,0,5"
-            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}"/>
+            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}" IsEnabled="{Binding SubmitEnable}"/>
         </DockPanel>
     </DockPanel>
 </Window>

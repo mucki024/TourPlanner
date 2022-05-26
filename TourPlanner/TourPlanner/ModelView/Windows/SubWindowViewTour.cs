@@ -24,12 +24,13 @@ namespace TourPlanner
         public Tour TourData { get; }
         public bool IsCreateTour { get; }
     }
-    public class SubWindowViewTour : ViewModelBase
+    public class SubWindowViewTour : ViewModelBase, IDataErrorInfo
     {
         public  int TourID { get; set; }
         public double TourDistance { get; set; }
         public TimeSpan EstimatedTime { get; set; }
-        private string _tourname;
+
+        private string _tourname = "";
         public string Tourname
         {
             get { return _tourname; }
@@ -57,7 +58,7 @@ namespace TourPlanner
             }
         }
 
-        private string _start;
+        private string _start="";
         public string Start
         {
             get { return _start; }
@@ -71,7 +72,7 @@ namespace TourPlanner
             }
         }
 
-        private string _destination;
+        private string _destination="";
         public string Destination
         {
             get { return _destination; }
@@ -105,7 +106,8 @@ namespace TourPlanner
             get { return _isNewTour;  }
             set{ _isNewTour = value; }
         }
-        private Visibility _AttributeVisibility; //cut start and end destination 
+
+        private Visibility _AttributeVisibility; //cut start and end destination for modify
         public Visibility AttributeVisibility
         {
             get { return _AttributeVisibility; }
@@ -115,6 +117,21 @@ namespace TourPlanner
                 OnPropertyChanged(nameof(AttributeVisibility));
             }
         }
+
+        public bool _submitEnable = false;
+        public bool SubmitEnable
+        {
+            get { return _submitEnable; }
+            set
+            {
+                if (_submitEnable != value)
+                {
+                    _submitEnable = value;
+                    OnPropertyChanged(nameof(SubmitEnable));
+                }
+            }
+        }
+
         public event EventHandler<ViewData> OnSubmitClicked;
         public RelayCommand Submit { get; }
         public Action CloseAction { get; set; }
@@ -135,6 +152,56 @@ namespace TourPlanner
                 OnSubmitClicked?.Invoke(this, new ViewData(tmpTour,IsNewTour));
                 CloseAction();
             });
+        }
+
+        /*
+         * ERROR Validation
+         * 
+         */
+        public string Error => string.Empty;
+        public string this[string columnName]
+        {
+            get
+            {
+                return Validate(columnName);
+            }
+        }
+
+        private string Validate(string propertyName)
+        {
+            // Return error message if there is error on else return empty or null string
+            string validationMessage = string.Empty;
+            switch (propertyName)
+            {
+                case nameof(Tourname): // property name
+                    validationMessage = ValidateIfEmpty(propertyName);
+                    break;
+                case nameof(Start): // property name
+                    validationMessage = ValidateIfEmpty(propertyName);
+                    break;
+                case nameof(Destination): // property name
+                    validationMessage = ValidateIfEmpty(propertyName);
+                    break;
+            }
+            if (validationMessage != string.Empty)
+                SubmitEnable = false;
+            if (Tourname != "" && Start != "" && Destination != "")
+                SubmitEnable = true;
+            return validationMessage;
+        }
+
+        private string ValidateIfEmpty(string propertyName)
+        {
+            try
+            {
+                if (this.GetType().GetProperty(propertyName).GetValue(this).ToString() == string.Empty)
+                    return "Input neccessary";
+            }
+            catch (System.NullReferenceException)
+            {
+                return "Something went wrong validating";
+            }
+            return string.Empty;
         }
     }
 }

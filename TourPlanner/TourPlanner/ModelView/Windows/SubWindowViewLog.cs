@@ -10,10 +10,13 @@ using Aspose.Cells.Drawing;
 using System.Windows;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace TourPlanner
 {
-    public class SubWindowViewLog : ViewModelBase
+    public class SubWindowViewLog : ViewModelBase, IDataErrorInfo
     {
         private string _comment;
         public string Comment {
@@ -41,7 +44,7 @@ namespace TourPlanner
             }
         }
 
-        private DateTime _timestamp;
+        private DateTime _timestamp = DateTime.Today;
         public DateTime Timestamp
         {
             get { return _timestamp; }
@@ -55,14 +58,15 @@ namespace TourPlanner
             }
         }
 
-        private TimeSpan _totalTime;
-        public TimeSpan TotalTime
+        private string _totalTime = "00:00:00";
+        public string TotalTime
         {
             get { return _totalTime; }
             set
             {
                 if (_totalTime != value)
                 {
+                    SubmitEnable = true;
                     _totalTime = value;
                     OnPropertyChanged(nameof(TotalTime));
                 }
@@ -83,22 +87,90 @@ namespace TourPlanner
             }
         }
 
-        public int TourID { get; set; }
+        public bool _submitEnable = false;
+        public bool SubmitEnable
+        {
+            get { return _submitEnable; }
+            set
+            {
+                if (_submitEnable != value)
+                {
+                    _submitEnable = value;
+                    OnPropertyChanged(nameof(SubmitEnable));
+                }
+            }
+        }
 
+        public int TourID { get; set; }
 
         public event EventHandler<TourLog> OnSubmitClicked;
         public RelayCommand Submit { get; }
         public Action CloseAction { get; set; }
+
 
         public SubWindowViewLog()
         {
             //ResetBindings();
             this.Submit = new RelayCommand((_) =>
             {
-                TourLog tmpLog = new TourLog(TourID, Comment,((int)Difficulty), Timestamp, TotalTime, Rating);
+                TourLog tmpLog = new TourLog(TourID, Comment,((int)Difficulty), Timestamp, TimeSpan.Parse(TotalTime), Rating);
                 OnSubmitClicked?.Invoke(this, tmpLog);
                 CloseAction();
             });
+        }
+
+        /*
+         * ERROR Validation
+         * 
+         */
+        public string Error => string.Empty;
+        public string this[string columnName]
+        {
+            get
+            {
+                return Validate(columnName);
+            }
+        }
+
+        private string Validate(string propertyName)
+        {
+            // Return error message if there is error on else return empty or null string
+            string validationMessage = string.Empty;
+            switch (propertyName)
+            {
+                case nameof(TotalTime): // property name
+                    validationMessage = ValidateTime();          
+                    break;
+                case nameof(Rating): // property name
+                    validationMessage = ValidateRating();
+                    break;
+            }
+            if (validationMessage != string.Empty)
+                SubmitEnable = false;
+            return validationMessage;
+        }
+
+        private string ValidateRating()
+        {
+            if(Rating > 10)
+                return "no ratings greater than 10";
+            return string.Empty;
+        }
+
+        private string ValidateTime()
+        {
+            TimeSpan outTime;
+            if (!TimeSpan.TryParse(TotalTime,out outTime))
+            {
+                return "Wrong format (hh:mm:ss)!";
+            }
+
+            if (TotalTime == "00:00:00")
+            {
+                return "TimeInput is missing";
+            }
+
+            return string.Empty;
         }
     }
 }
