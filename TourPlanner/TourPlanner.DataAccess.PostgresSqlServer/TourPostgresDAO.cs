@@ -21,6 +21,8 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             "SET name = @name, description = @description "+
             "WHERE id=@id";
         private const string SQL_FULL_TEXT_SEARCH = "SELECT * FROM public.fulltextsearch(@param)";
+        private const string SQL_DELETE_TOUR = "DELETE FROM FROM public.\"Tours\"WHERE id=@Id";
+        private const string SQL_DELETE_TOURLOGS="DELETE FROM public.\"Logs\"WHERE tid=@Id; ";
         private IDatabase database;
         private ITourLogDAO logDAO;
 
@@ -51,8 +53,14 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             return FindById(tour.TourID); // does the DB request
         }
 
-        public bool DeleteTour(Tour model)
+        public bool DeleteTour(Tour tour)
         {
+            DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_TOUR);
+            database.DefineParameter(deleteCommand, "@id", DbType.String, tour.TourID);
+            database.ExecuteNonQuery(deleteCommand); 
+            DbCommand deleteLogsCommand = database.CreateCommand(SQL_DELETE_TOURLOGS);
+            database.DefineParameter(deleteLogsCommand, "@id", DbType.String, tour.TourID);
+            database.ExecuteNonQuery(deleteLogsCommand);
             return true;
         }
 
