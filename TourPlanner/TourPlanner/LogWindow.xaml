@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="LogWindow" Height="400" Width="300">
     <Window.DataContext>
-        <local:SubWindowViewTour/>
+        <local:SubWindowViewLog/>
     </Window.DataContext>
     <Window.Resources>
         <ObjectDataProvider x:Key="GetDataFromEnum"
@@ -28,7 +28,9 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Date" />
-            <DatePicker Text="{Binding Timestamp}" />
+            <DatePicker Text="{Binding Timestamp}" SelectedDateFormat="Long" SelectedDate="5/26/22"
+                  IsTodayHighlighted="True" 
+                  FirstDayOfWeek="Monday"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Difficulty" />
@@ -36,7 +38,8 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Total Time" />
-            <DatePickerTextBox Text="{Binding TotalTime}"/>
+            <TextBox Text="{Binding TotalTime, ValidatesOnDataErrors=True}">
+            </TextBox>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Rating" />
@@ -49,7 +52,7 @@
         <DockPanel DockPanel.Dock="Bottom">
             <Button  x:Name="submit" Content = "Submit"
             HorizontalAlignment = "Center" Margin = "0,0,0,5"
-            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}"/>
+            VerticalAlignment = "Bottom" Width = "75" Command="{Binding Submit}" IsEnabled="{Binding SubmitEnable}"/>
         </DockPanel>
     </DockPanel>
 </Window>
