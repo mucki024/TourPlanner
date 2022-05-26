@@ -28,7 +28,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Date" />
-            <DatePicker Text="{Binding Timestamp}" SelectedDateFormat="Long" SelectedDate="5/26/22"
+            <DatePicker Text="{Binding Timestamp}"
                   IsTodayHighlighted="True" 
                   FirstDayOfWeek="Monday"/>
         </DockPanel>

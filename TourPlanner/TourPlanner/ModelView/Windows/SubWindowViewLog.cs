@@ -18,7 +18,7 @@ namespace TourPlanner
 {
     public class SubWindowViewLog : ViewModelBase, IDataErrorInfo
     {
-        private string _comment;
+        private string _comment ="";
         public string Comment {
             get { return _comment; }
             set
@@ -73,7 +73,7 @@ namespace TourPlanner
             }
         }
 
-        private int _rating;
+        private int _rating = 0;
         public int Rating
         {
             get { return _rating; }
@@ -113,7 +113,7 @@ namespace TourPlanner
             //ResetBindings();
             this.Submit = new RelayCommand((_) =>
             {
-                TourLog tmpLog = new TourLog(TourID, Comment,((int)Difficulty), Timestamp, TimeSpan.Parse(TotalTime), Rating);
+                TourLog tmpLog = new TourLog(TourID, Comment,((int)Difficulty), Timestamp.ToUniversalTime(), TimeSpan.Parse(TotalTime), Rating);
                 OnSubmitClicked?.Invoke(this, tmpLog);
                 CloseAction();
             });
