@@ -44,7 +44,7 @@ namespace TourPlanner
             }
         }
 
-        private string _description;
+        private string _description="";
         public string Description
         {
             get { return _description; }

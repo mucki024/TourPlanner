@@ -21,7 +21,7 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             "RETURNING \"id\"";
         private const string SQL_UPDATE_LOG = "UPDATE public.\"Logs\"" +
             "SET\"date\" =@date,\"difficulty\"=@difficulty,\"comment\"=@comment,\"time\"=@time,\"rating\"=@rating "+
-            "WHERE \"tid\" = @tid";
+            "WHERE \"id\" = @id";
         private const string SQL_DELETE_LOG = "DELETE FROM public.\"Logs\"WHERE id=@Id";
         private const string SQL_GET_ROW_COUNT = "SELECT  count(*) FROM \"Logs\"";
         private IDatabase database;
@@ -49,14 +49,14 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             database.DefineParameter(updateCommand, "@comment", DbType.String, model.Comment);
             database.DefineParameter(updateCommand, "@time", DbType.Time, model.TotalTime);
             database.DefineParameter(updateCommand, "@rating", DbType.Int32, model.Rating);
-            database.DefineParameter(updateCommand, "@tid", DbType.Int32, model.TourID);
+            database.DefineParameter(updateCommand, "@id", DbType.Int32, model.TourLogID);
             return GetById(database.ExecuteNonQuery(updateCommand)); // does the DB request
         }
 
         public bool DeleteTourLog(TourLog model)
         {
             DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_LOG);
-            database.DefineParameter(deleteCommand, "@id", DbType.String, model.TourID);
+            database.DefineParameter(deleteCommand, "@id", DbType.Int32, model.TourLogID);
             database.ExecuteNonQuery(deleteCommand);
             return true;
         }
@@ -85,13 +85,13 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
                 while (reader.Read()) //reads out each row we got
                 {
                     LogList.Add(new TourLog( //generates object for each row & instantly appends it
+                        (int)reader["id"],
                         (int)reader["tid"],
                         (string)reader["comment"],
                         (Int16)reader["difficulty"],
                         (DateTime)reader["date"],//maybe need to do as string in db if not work right
                         (TimeSpan)reader["time"],//maybe need to do as string in db if not work right
                         (Int16)reader["rating"]
-
                         ));
                 }
             }

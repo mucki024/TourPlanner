@@ -56,10 +56,10 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
         public bool DeleteTour(Tour tour)
         {
             DbCommand deleteCommand = database.CreateCommand(SQL_DELETE_TOUR);
-            database.DefineParameter(deleteCommand, "@id", DbType.String, tour.TourID);
+            database.DefineParameter(deleteCommand, "@id", DbType.Int32, tour.TourID);
             database.ExecuteNonQuery(deleteCommand); 
             DbCommand deleteLogsCommand = database.CreateCommand(SQL_DELETE_TOURLOGS);
-            database.DefineParameter(deleteLogsCommand, "@id", DbType.String, tour.TourID);
+            database.DefineParameter(deleteLogsCommand, "@id", DbType.Int32, tour.TourID);
             database.ExecuteNonQuery(deleteLogsCommand);
             return true;
         }

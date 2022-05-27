@@ -44,7 +44,9 @@ namespace TourPlanner
 
             DeleteLog = new RelayCommand((_) =>
             {
-                _tourfactory.deleteTourLog(SelectedTourLog);
+                TourLog tmp = new TourLog(SelectedTourLog.TourLogID,SelectedTourLog.TourID,SelectedTourLog.Comment,(int)SelectedTourLog.Difficulty,SelectedTourLog.Timestamp,SelectedTourLog.TotalTime,SelectedTourLog.Rating);
+                _tourfactory.deleteTourLog(tmp);
+                TourLogData.Remove(SelectedTourLog);
             });
             FillLogsToCollection();
             viewModel.OnSubmitClicked += (_, TourClass) =>
@@ -61,7 +63,7 @@ namespace TourPlanner
                 return;
             foreach (TourLog item in _tourfactory.getAllLogs(_tourID))
             {
-                EditableTourLogModel tmp = new EditableTourLogModel(item.TourID,item.Comment, (int)item.Difficulty,item.Timestamp.ToUniversalTime(),item.TotalTime,item.Rating);
+                EditableTourLogModel tmp = new EditableTourLogModel(item.TourLogID,item.TourID,item.Comment, (int)item.Difficulty,item.Timestamp.ToUniversalTime(),item.TotalTime,item.Rating);
                 TourLogData.Add(tmp);
                 tmp.OnChangeOfTourLog += (_, model) =>
                 {

@@ -101,7 +101,7 @@ namespace TourPlanner
         }
 
         //Todo: add TourFactory through DI
-        public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs)
+        public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs, SubWindowViewLog vmLogWindow)
         {
             logger.Debug("Started Application");
             _tourfactory = TourFactory.GetInstance();
@@ -121,8 +121,8 @@ namespace TourPlanner
             {
                 if (SelectedTour != null)
                 {
+                    _tourfactory.deleteTour(SelectedTour);
                     TourData.Remove(SelectedTour);
-                    //Todo call BIZ 
                 }
             });
 
@@ -134,6 +134,11 @@ namespace TourPlanner
                     tmpTourWindow.CreateNewWindow(_selectedTour);
                 }
             });
+
+            vmLogWindow.OnNewLogAdded += (_, fullTourData) =>
+            {
+                FillToursToCollection();
+            };
         }
 
         private void IntSubWindowForTours(SubWindowViewTour viewModelTour)

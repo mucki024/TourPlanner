@@ -25,12 +25,13 @@ namespace TourPlanner
 
         public void EndEdit()
         {
-            OnChangeOfTourLog?.Invoke(this, new TourLog(TourID,Comment,(int)Difficulty,Timestamp,TotalTime,Rating));
+            OnChangeOfTourLog?.Invoke(this, new TourLog(TourLogID,TourID,Comment,(int)Difficulty,Timestamp,TotalTime,Rating));
         }
 
-        public EditableTourLogModel(int id, string comment, int difficulty, DateTime timestamp, TimeSpan totalTime, int rating) : base( id,  comment,  difficulty,  timestamp,  totalTime,  rating)
+        public EditableTourLogModel(int id,int fid, string comment, int difficulty, DateTime timestamp, TimeSpan totalTime, int rating) : base(id, fid,  comment,  difficulty,  timestamp,  totalTime,  rating)
         {
-            this.TourID = id;
+            this.TourLogID = id;
+            this.TourID = fid;
             this.Comment = comment;
             this.Difficulty = (DiffucltyLevel)difficulty;
             this.Timestamp = timestamp;

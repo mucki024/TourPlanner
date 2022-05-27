@@ -14,6 +14,7 @@ namespace TourPlanner.Model
     }
     public class TourLog
     {
+        public int TourLogID { get; set; }
         public int TourID { get; set; } 
         public string Comment { get; set; }
         public DiffucltyLevel Difficulty  { get; set; }
@@ -22,9 +23,10 @@ namespace TourPlanner.Model
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
 
-        public TourLog(int id,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
-        { 
-            this.TourID = id;
+        public TourLog(int id,int fid,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
+        {
+            this.TourLogID = id;
+            this.TourID = fid;
             this.Comment = comment;
             this.Difficulty = (DiffucltyLevel)difficulty;
             this.Timestamp = timestamp;

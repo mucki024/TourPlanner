@@ -104,6 +104,7 @@ namespace TourPlanner
         public int TourID { get; set; }
 
         public event EventHandler<TourLog> OnSubmitClicked;
+        public event EventHandler OnNewLogAdded;        //event to update tours for tour popularity
         public RelayCommand Submit { get; }
         public Action CloseAction { get; set; }
 
@@ -113,8 +114,10 @@ namespace TourPlanner
             //ResetBindings();
             this.Submit = new RelayCommand((_) =>
             {
-                TourLog tmpLog = new TourLog(TourID, Comment,((int)Difficulty), Timestamp.ToUniversalTime(), TimeSpan.Parse(TotalTime), Rating);
+                int TourLogID = 0;
+                TourLog tmpLog = new TourLog(TourLogID, TourID, Comment,((int)Difficulty), Timestamp.ToUniversalTime(), TimeSpan.Parse(TotalTime), Rating);
                 OnSubmitClicked?.Invoke(this, tmpLog);
+                OnNewLogAdded?.Invoke(this, EventArgs.Empty);
                 CloseAction();
             });
         }

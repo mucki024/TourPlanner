@@ -30,7 +30,7 @@ namespace TourPlanner
 
             var wnd = new MainWindow
             {
-                DataContext = new MainViewModel(subWindowForTours, viewModelForTours, viewModelTourDescr, viewModelTourLogs),
+                DataContext = new MainViewModel(subWindowForTours, viewModelForTours, viewModelTourDescr, viewModelTourLogs, viewModelForLogs),
                 TourDescriptionView = { DataContext = viewModelTourDescr },
                 TourLogView = {DataContext = viewModelTourLogs}
             };
