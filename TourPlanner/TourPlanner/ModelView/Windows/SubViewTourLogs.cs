@@ -63,7 +63,7 @@ namespace TourPlanner
                 return;
             foreach (TourLog item in _tourfactory.getAllLogs(_tourID))
             {
-                EditableTourLogModel tmp = new EditableTourLogModel(item.TourLogID,item.TourID,item.Comment, (int)item.Difficulty,item.Timestamp.ToUniversalTime(),item.TotalTime,item.Rating);
+                EditableTourLogModel tmp = new EditableTourLogModel(item.TourLogID,item.TourID,item.Comment, (int)item.Difficulty,item.Timestamp.ToLocalTime(),item.TotalTime,item.Rating);
                 TourLogData.Add(tmp);
                 tmp.OnChangeOfTourLog += (_, model) =>
                 {
