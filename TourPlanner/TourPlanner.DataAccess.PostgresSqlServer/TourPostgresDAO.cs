@@ -65,7 +65,9 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
         }
 
         public IEnumerable<Tour> SearchForTours(string param)
-        {
+        { 
+            if(param == null)
+                return GetTours();
             DbCommand searchTourCommand = database.CreateCommand(SQL_FULL_TEXT_SEARCH);
             database.DefineParameter(searchTourCommand, "@param", DbType.String, param);
             return QueryFromDB(searchTourCommand);
