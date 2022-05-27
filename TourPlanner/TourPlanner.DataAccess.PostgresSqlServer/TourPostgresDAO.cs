@@ -21,8 +21,8 @@ namespace TourPlanner.DataAccess.PostgresSqlServer
             "SET name = @name, description = @description "+
             "WHERE id=@id";
         private const string SQL_FULL_TEXT_SEARCH = "SELECT * FROM public.fulltextsearch(@param)";
-        private const string SQL_DELETE_TOUR = "DELETE FROM FROM public.\"Tours\"WHERE id=@Id";
-        private const string SQL_DELETE_TOURLOGS="DELETE FROM public.\"Logs\"WHERE tid=@Id; ";
+        private const string SQL_DELETE_TOUR = "DELETE FROM public.\"Tours\" WHERE id=@Id";
+        private const string SQL_DELETE_TOURLOGS="DELETE FROM public.\"Logs\" WHERE tid=@Id; ";
         private IDatabase database;
         private ITourLogDAO logDAO;
 
