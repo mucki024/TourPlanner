@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourPlanner
+namespace TourPlanner.BusinessLayer
 {
     public class CalculatePopHelper
     {

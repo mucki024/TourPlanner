@@ -44,6 +44,8 @@ namespace TourPlanner
 
             DeleteLog = new RelayCommand((_) =>
             {
+                if (SelectedTourLog == null)
+                    return;
                 TourLog tmp = new TourLog(SelectedTourLog.TourLogID,SelectedTourLog.TourID,SelectedTourLog.Comment,(int)SelectedTourLog.Difficulty,SelectedTourLog.Timestamp,SelectedTourLog.TotalTime,SelectedTourLog.Rating);
                 _tourfactory.deleteTourLog(tmp);
                 TourLogData.Remove(SelectedTourLog);
@@ -79,5 +81,58 @@ namespace TourPlanner
             FillLogsToCollection();
         }
 
+        /*
+         * ERROR Validation
+         * 
+         */
+        /*
+        public string Error => string.Empty;
+        public string this[string columnName]
+        {
+            get
+            {
+                return Validate(columnName);
+            }
+        }
+
+        private string Validate(string propertyName)
+        {
+            // Return error message if there is error on else return empty or null string
+            string validationMessage = string.Empty;
+            switch (propertyName)
+            {
+                case nameof(SelectedTourLog.TotalTime): // property name
+                    validationMessage = ValidateTime();
+                    break;
+                case nameof(SelectedTourLog.Rating): // property name
+                    validationMessage = ValidateRating();
+                    break;
+            }
+            return validationMessage;
+        }
+
+        private string ValidateRating()
+        {
+            if (SelectedTourLog.Rating > 10)
+                return "no ratings greater than 10";
+            return string.Empty;
+        }
+
+        private string ValidateTime()
+        {
+            TimeSpan outTime;
+            if (!TimeSpan.TryParse(SelectedTourLog.TotalTime.ToString(), out outTime))
+            {
+                return "Wrong format (hh:mm:ss)!";
+            }
+
+            if (SelectedTourLog.TotalTime.ToString() == "00:00:00")
+            {
+                return "TimeInput is missing";
+            }
+
+            return string.Empty;
+        }
+        */
     }
 }

@@ -24,6 +24,7 @@
             <Button Content="-" Margin="5" FontSize="15" Command="{Binding DeleteLog}"/>
             <!--Button Content="Save" Margin="5" FontSize="15" /-->
         </StackPanel>
+        
         <DataGrid x:Name="TourLogGrid" 
                   ItemsSource="{Binding TourLogData}" 
                   SelectedItem="{Binding SelectedTourLog}"
@@ -46,7 +47,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding TotalTime}"  Header="Duration"/>
+                <DataGridTextColumn Binding="{Binding TotalTime,ValidatesOnDataErrors=True,StringFormat=hh\\:mm\\:ss}"  Header="Duration"/>
                 <DataGridTextColumn Binding="{Binding Rating}"  Header="Rating"/>
                 <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource GetDataFromEnum}}" SelectedItemBinding="{Binding Difficulty}"  Header="Difficulty"/>
                 <DataGridTextColumn Binding="{Binding Comment}" Header="Comment"/>

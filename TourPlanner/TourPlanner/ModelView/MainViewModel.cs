@@ -148,8 +148,14 @@ namespace TourPlanner
             viewModelTour.OnSubmitClicked += async (_, fullTourData) =>
             {
                 // call the BIZ-layer
-                if(fullTourData.IsCreateTour)
-                    await _tourfactory.addNewTour(fullTourData.TourData);
+                if (fullTourData.IsCreateTour)
+                {
+                    string tmp;
+                    if ((tmp = await _tourfactory.addNewTour(fullTourData.TourData)) != String.Empty) //if false=> something wrong with api
+                    {
+                        MessageBox.Show(tmp, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
                 if (!fullTourData.IsCreateTour)
                     _tourfactory.modifyTour(fullTourData.TourData);
                 FillToursToCollection();

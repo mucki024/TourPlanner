@@ -10,7 +10,7 @@ using TourPlanner.BusinessLayer;
 
 namespace TourPlanner
 {
-    public class EditableTourLogModel : TourLog, IEditableObject
+    public class EditableTourLogModel : TourLog, IEditableObject, IDataErrorInfo
     {
         public event EventHandler<TourLog> OnChangeOfTourLog;
 
@@ -38,6 +38,37 @@ namespace TourPlanner
             this.TotalTime = totalTime;
             this.Rating = rating;
             ConvertDate();
+        }
+
+        public string Error => string.Empty;
+        public string this[string columnName]
+        {
+            get
+            {
+                return Validate(columnName);
+            }
+        }
+
+        private string Validate(string propertyName)
+        {
+            // Return error message if there is error on else return empty or null string
+            string validationMessage = string.Empty;
+            switch (propertyName)
+            {
+                case nameof(TotalTime): // property name
+                    validationMessage = ValidateTime();
+                    break;
+
+            }
+            return validationMessage;
+        }
+
+        private string ValidateTime()
+        {
+            if (TotalTime.Days > 0 || TotalTime.Hours > 23)
+                return "Total TIme is too high => max 23:59:59!";
+
+            return string.Empty;
         }
     }
 }

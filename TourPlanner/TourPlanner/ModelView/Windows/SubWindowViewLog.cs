@@ -167,6 +167,8 @@ namespace TourPlanner
             {
                 return "Wrong format (hh:mm:ss)!";
             }
+            if(outTime.Days > 0 || outTime.Hours > 23)
+                return "Total TIme is too high => max 23:59:59!";
 
             if (TotalTime == "00:00:00")
             {

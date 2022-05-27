@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TourPlanner.Model;
 
-namespace TourPlanner
+namespace TourPlanner.BusinessLayer
 {
     public class CalculateChildFHelper
     {

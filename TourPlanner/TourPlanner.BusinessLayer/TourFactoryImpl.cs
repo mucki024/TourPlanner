@@ -26,14 +26,19 @@ namespace TourPlanner.BusinessLayer
             return tourDAO.SearchForTours(searchterm);
         }
 
-        public async Task addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
+        public async Task<string> addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             IApiAccessDAO accessDao = DALFactory.GetApi();
             tourModel = await accessDao.GetRouteInfo(tourModel);
-            Tour tmpTour = tourDAO.AddNewTour(tourModel);
-
-            await accessDao.DownloadImage(tmpTour.TourID);
+            if(tourModel != null)
+            {
+                Tour tmpTour = tourDAO.AddNewTour(tourModel);
+                if (!await accessDao.DownloadImage(tmpTour.TourID))
+                    return "Unable to dowload/save Image";
+                return string.Empty;
+            }
+            return "Unable to process Route, please try again";
         }
         public bool addNewLog(TourLog tourLog)
         {
@@ -76,6 +81,15 @@ namespace TourPlanner.BusinessLayer
                 return path;
             }
             return System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
+        }
+
+        public ChildFriendliness calcChildFriendliness(List<TourLog> tourLogList, double dist)
+        {
+            return CalculateChildFHelper.CheckChildfriendlíness(tourLogList, dist);
+        }
+        public int calcPopularity(int logCount)
+        {
+            return CalculatePopHelper.CheckPopularity(logCount);
         }
     }
 }

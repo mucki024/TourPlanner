@@ -10,7 +10,7 @@ namespace TourPlanner.DataAccess.DAO
     public interface IApiAccessDAO
     {
         public Task<Tour> GetRouteInfo(Tour tourModel);
-        public Task DownloadImage(int tourID);
+        public Task<bool> DownloadImage(int tourID);
 
     }
 }

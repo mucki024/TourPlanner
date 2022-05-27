@@ -155,7 +155,6 @@ namespace TourPlanner
             }
         }
 
-
         //is triggered by selected Tour changed
         public void displayAttributes(Tour tour)
         {
@@ -167,13 +166,14 @@ namespace TourPlanner
             this.EstimatedTime = tour.EstimatedTime;
             this.Description = tour.RouteInformation;
             this.ImageName = System.AppDomain.CurrentDomain.BaseDirectory + $"\\images\\{tour.TourID}.jpeg";
-            calculateAdditinalData(tour);
+            calculateAdditionalData(tour);
         }
 
-        private void calculateAdditinalData(Tour tour)
+        private void calculateAdditionalData(Tour tour)
         {
-            this.Popularity = CalculatePopHelper.CheckPopularity(tour.LogList.Count());
-            this.ChildFriendl = CalculateChildFHelper.CheckChildfriendlíness(tour.LogList, tour.TourDistance);
+            ITourFactory fac =  TourFactory.GetInstance();
+            this.Popularity = fac.calcPopularity(tour.LogList.Count());
+            this.ChildFriendl = fac.calcChildFriendliness(tour.LogList, tour.TourDistance);
         }
 
         public RelayCommand MyCommand { get; set; }
@@ -191,19 +191,7 @@ namespace TourPlanner
         */
         public SubViewTourDescription()
         {
-            /*
-            FallbackImage = new RelayCommand((_) =>
-            {
-
-            });
-            */
-            /*
-            MyCommand = new RelayCommand(async (_) =>
-            {
-                //logger.Debug("Hey1");
-                //await LoadAPI();
-            });
-            */
+ 
         }
     }
 }
