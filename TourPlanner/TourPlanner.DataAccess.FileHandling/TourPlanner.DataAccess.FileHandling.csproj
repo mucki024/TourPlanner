@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TourPlanner.DataAccess.API\TourPlanner.DataAccess.API.csproj" />
-    <ProjectReference Include="..\TourPlanner.DataAccess.FileHandling\TourPlanner.DataAccess.FileHandling.csproj" />
-    <ProjectReference Include="..\TourPlanner.DataAccess.PostgresSqlServer\TourPlanner.DataAccess.PostgresSqlServer.csproj" />
+    <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\TourPlanner.DataAccess\TourPlanner.DataAccess.csproj" />
     <ProjectReference Include="..\TourPlanner.Model\TourPlanner.Model.csproj" />
   </ItemGroup>

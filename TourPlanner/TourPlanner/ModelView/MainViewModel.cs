@@ -12,6 +12,7 @@ using System.Collections;
 using System;
 using System.IO;
 using TourPlanner.Logging;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace TourPlanner
 {
@@ -42,6 +43,9 @@ namespace TourPlanner
         public RelayCommand AddTour { get; }
         public RelayCommand DeleteTour { get; }
         public RelayCommand ChangeTour { get; }
+
+        public RelayCommand ExportFile { get; }
+        public RelayCommand ImportFile { get; }
 
         public MouseButtonEventHandler ChangebaleTour
         {
@@ -100,6 +104,7 @@ namespace TourPlanner
             }
         }
 
+
         //Todo: add TourFactory through DI
         public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs, SubWindowViewLog vmLogWindow)
         {
@@ -139,6 +144,25 @@ namespace TourPlanner
             {
                 FillToursToCollection();
             };
+
+            ExportFile =new  RelayCommand(async (_) =>
+            {
+                string tmpPath = RetrieveFolderPath();
+                if(!await _tourfactory.exportFile(SelectedTour, tmpPath))
+                    MessageBox.Show("export failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+            });
+        }
+
+        private string RetrieveFolderPath() //returns users selected folder
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                return dialog.FileName;
+            }
+            return string.Empty;
         }
 
         private void IntSubWindowForTours(SubWindowViewTour viewModelTour)

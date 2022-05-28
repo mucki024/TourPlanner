@@ -18,6 +18,8 @@ namespace TourPlanner.DataAccess.Common
         private static Assembly apiAssembly;
         private static IDatabase database;
         private static IApiAccessDAO apiAccess;
+        private static Assembly fileAssembly;
+        private static IFileHandlerDAO fileHandler;
         static DALFactory()
         {
             assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
@@ -56,6 +58,22 @@ namespace TourPlanner.DataAccess.Common
             string apiClassName = apiName + ".ApiHandlerDAO";
             Type apiClass = apiAssembly.GetType(apiClassName);
             return Activator.CreateInstance(apiClass, new object[] { connectionString }) as IApiAccessDAO; //needs to be done through reflection, cause otherwise child class is not known in this context
+        }
+
+        public static IFileHandlerDAO GetFileHandler()
+        {
+            if (fileHandler == null)
+                fileHandler = GetNewFileHandler();
+            return fileHandler;
+        }
+
+        private static IFileHandlerDAO GetNewFileHandler()
+        {
+            string fileNamespace = ConfigurationManager.AppSettings["DALFileAssembly"];
+            string fileClassName = fileNamespace + ".FileHandlerDAO";
+            fileAssembly = Assembly.Load(fileNamespace);
+            Type fileClass = fileAssembly.GetType(fileClassName);
+            return Activator.CreateInstance(fileClass, new object[] { }) as IFileHandlerDAO; //needs to be done through reflection, cause otherwise child class is not known in this context
         }
         public static ITourDAO CreateTourDAO()
         {

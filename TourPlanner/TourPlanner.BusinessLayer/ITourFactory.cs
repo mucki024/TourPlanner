@@ -18,5 +18,6 @@ namespace TourPlanner.BusinessLayer
         string checkImage(string path);
         ChildFriendliness calcChildFriendliness(List<TourLog> tourLogList, double dist);
         int calcPopularity(int logCount);
+        Task<bool> exportFile(Tour tour, string path);
     }
 }

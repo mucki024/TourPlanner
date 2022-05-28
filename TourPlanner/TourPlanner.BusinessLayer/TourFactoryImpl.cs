@@ -91,5 +91,13 @@ namespace TourPlanner.BusinessLayer
         {
             return CalculatePopHelper.CheckPopularity(logCount);
         }
+        
+        public async Task<bool> exportFile(Tour model, string path)
+        {
+            IFileHandlerDAO fileDAO= DALFactory.GetFileHandler();
+            return await fileDAO.FileExport(model, path);
+            //FileHan
+            //return await 
+        }
     }
 }

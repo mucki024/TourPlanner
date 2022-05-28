@@ -30,6 +30,10 @@ namespace TourPlanner.Model
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 
+        public Tour()
+        {
+
+        }
 
         public Tour(string tourname, string start, string destination, string description, TransportType transportType)
         {
