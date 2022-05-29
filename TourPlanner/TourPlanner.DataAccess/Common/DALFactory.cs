@@ -69,7 +69,7 @@ namespace TourPlanner.DataAccess.Common
 
         private static IFileHandlerDAO GetNewFileHandler()
         {
-            string fileNamespace = ConfigurationManager.AppSettings["DALFileAssembly"];
+            string fileNamespace = "TourPlanner.DataAccess.FileHandling";
             string fileClassName = fileNamespace + ".FileHandlerDAO";
             fileAssembly = Assembly.Load(fileNamespace);
             Type fileClass = fileAssembly.GetType(fileClassName);
