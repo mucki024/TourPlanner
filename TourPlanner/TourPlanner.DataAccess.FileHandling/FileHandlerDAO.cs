@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.Json;
@@ -29,6 +30,11 @@ namespace TourPlanner.DataAccess.FileHandling
 
             //Tour? weatherForecast = JsonSerializer.Deserialize<Tour>(jsonModel);
             return true;
+        }
+
+        public Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path)
+        {
+            throw new NotImplementedException();
         }
     }
 }

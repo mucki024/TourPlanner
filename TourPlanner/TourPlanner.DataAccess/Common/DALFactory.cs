@@ -63,14 +63,19 @@ namespace TourPlanner.DataAccess.Common
         public static IFileHandlerDAO GetFileHandler()
         {
             if (fileHandler == null)
-                fileHandler = GetNewFileHandler();
+                fileHandler = GetNewHandler(".FileHandlerDAO");
             return fileHandler;
         }
-
-        private static IFileHandlerDAO GetNewFileHandler()
+        public static IFileHandlerDAO GetReportHandler()
+        {
+            if (fileHandler == null)
+                fileHandler = GetNewHandler(".ReportHandlerDAO");
+            return fileHandler;
+        }
+        private static IFileHandlerDAO GetNewHandler(string desiredClass)
         {
             string fileNamespace = "TourPlanner.DataAccess.FileHandling";
-            string fileClassName = fileNamespace + ".FileHandlerDAO";
+            string fileClassName = fileNamespace + desiredClass;
             fileAssembly = Assembly.Load(fileNamespace);
             Type fileClass = fileAssembly.GetType(fileClassName);
             return Activator.CreateInstance(fileClass, new object[] { }) as IFileHandlerDAO; //needs to be done through reflection, cause otherwise child class is not known in this context
