@@ -4,6 +4,7 @@ using System.Configuration;
 using TourPlanner;
 using TourPlanner.BusinessLayer;
 using TourPlanner.DataAccess.Common;
+using TourPlanner.DataAccess.FileHandling;
 using TourPlanner.DataAccess.PostgresSqlServer;
 using TourPlanner.Model;
 
@@ -67,6 +68,16 @@ namespace TourPlannerTest
             logs.Add(log);
             //tour rated as easy but dist high
             Assert.AreEqual(CalculateChildFHelper.CheckChildfriendlíness(logs, 9.0), ChildFriendliness.OnlyForAdults);
+        }
+        [Test]
+        public void DALFactoryExportReflectionWorks()
+        {
+            Assert.AreEqual(DALFactory.GetFileHandler(), typeof(FileHandlerDAO));
+        }
+        [Test]
+        public void DALFactoryReportReflectionWorks()
+        {
+            Assert.AreEqual(DALFactory.GetFileHandler(), typeof(ReportHandlerDAO));
         }
 
     }
