@@ -30,11 +30,30 @@ namespace TourPlanner.Model
 
         public List<TourLog> LogList { get; set; } = new List<TourLog>(); //changed to log list
 
+        //for import/ export
         public Tour()
         {
 
         }
 
+        /*
+        //for import/ export
+        public Tour(int tourId, string tourname, string start, string destination, int transportType, double tourDistance, TimeSpan estimatedTime,string  routeInformation,string imagePath,int popularity,int childFriendliness, List<TourLog> logList)
+        {
+            this.TourID = tourId;
+            this.Tourname = tourname;
+            this.Start = start;
+            this.Destination = destination;
+            this.TransportType = (TransportType)transportType;
+            this.TourDistance = tourDistance;
+            this.EstimatedTime = estimatedTime;
+            this.RouteInformation = routeInformation;
+            this.ImagePath = imagePath;
+            this.Popularity = popularity;
+            this.ChildFriendliness = (ChildFriendliness)childFriendliness;
+            this.LogList = logList;
+        }
+        */
         public Tour(string tourname, string start, string destination, string description, TransportType transportType)
         {
             TourID = 1;

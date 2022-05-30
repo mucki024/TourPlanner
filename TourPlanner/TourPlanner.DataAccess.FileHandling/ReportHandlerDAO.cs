@@ -49,6 +49,11 @@ namespace TourPlanner.DataAccess.FileHandling
             return true;
         }
 
+        public Task<Tour> FileImport(string path)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path)
         {
             throw new NotImplementedException();

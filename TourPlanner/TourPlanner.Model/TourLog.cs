@@ -23,6 +23,12 @@ namespace TourPlanner.Model
         public TimeSpan TotalTime { get; set; }
         public int Rating { get; set; }
 
+        //for import / export
+        public TourLog()
+        {
+
+        }
+
         public TourLog(int id,int fid,string comment,int difficulty,DateTime timestamp,TimeSpan totalTime,int rating)
         {
             this.TourLogID = id;
@@ -34,6 +40,21 @@ namespace TourPlanner.Model
             this.Rating = rating;
             ConvertDate();
         }
+
+        /*
+        //import/ export
+        public TourLog(int tourLogID, int tourID, string comment, int difficulty, DateTime timestamp,string dateOnly, TimeSpan totalTime, int rating)
+        {
+            this.TourLogID = tourLogID;
+            this.TourID = tourID;
+            this.Comment = comment;
+            this.Difficulty = (DiffucltyLevel)difficulty;
+            this.Timestamp = timestamp;
+            this.DateOnly = dateOnly;
+            this.TotalTime = totalTime;
+            this.Rating = rating;
+        }
+        */
 
         public void ConvertDate()
         {
