@@ -17,6 +17,8 @@ namespace TourPlanner.DataAccess.FileHandling
     {
         public async Task<bool> FileExport(Tour tourModel, string path)
         {
+            if (path==null || tourModel == null)
+                return false;
             await Task.Run(() =>
             {
                 string fileName = path + "\\"+tourModel.TourID+"-"+tourModel.Tourname+".pdf";
@@ -27,17 +29,18 @@ namespace TourPlanner.DataAccess.FileHandling
                             .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
                             .SetFontSize(16)
                             .SetBold();
-                Paragraph TourData = new Paragraph("From: "+tourModel.Start+"\n"+"To: "+tourModel.Destination+"\n" + tourModel.RouteInformation)
+                Paragraph TourData = new Paragraph("From: "+tourModel.Start+"\n"+"To: "+tourModel.Destination+"\nSummary: " + tourModel.RouteInformation)
                                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
                 List Loglist = new List()
                       .SetSymbolIndent(12)
-                      .SetListSymbol("\u2022")
+                      .SetListSymbol("")
                       .SetFont(PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLD));
                 foreach(TourLog log in tourModel.LogList)
                 {
                     Loglist.Add(new ListItem(log.Rating + " " + log.Timestamp))
                         .Add(new ListItem(log.Comment))
-                        .Add(new ListItem(log.Difficulty + " " + log.TotalTime));
+                        .Add(new ListItem(log.Difficulty + " " + log.TotalTime))
+                        .Add(new ListItem("______________________"));
 
                 }
 
@@ -56,6 +59,8 @@ namespace TourPlanner.DataAccess.FileHandling
 
         public async Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path) 
         {//should get called after full db querry to make sure all tours are supplied
+            if (path == null)
+                return false;
             await Task.Run(() =>
             {
                 string fileName = path + "\\TourReport.pdf";
@@ -75,7 +80,7 @@ namespace TourPlanner.DataAccess.FileHandling
                     Tourlist.Add(new ListItem(tour.TourID + ": " + tour.Tourname))
                             .Add(new ListItem(tour.Start + " - " + tour.Destination))
                             .Add(new ListItem(tour.RouteInformation))
-                            .Add(new ListItem(""));
+                            .Add(new ListItem("________________________"));
 
                 }
                 document.Add(Tourlist);
