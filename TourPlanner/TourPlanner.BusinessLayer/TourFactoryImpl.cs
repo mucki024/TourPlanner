@@ -96,8 +96,23 @@ namespace TourPlanner.BusinessLayer
         {
             IFileHandlerDAO fileDAO= DALFactory.GetFileHandler();
             return await fileDAO.FileExport(model, path);
-            //FileHan
-            //return await 
+        }
+
+        public async Task<Tour> importFile(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> exportReport(Tour model, string path)
+        {
+            IFileHandlerDAO fileDAO = DALFactory.GetReportHandler();
+            return await fileDAO.FileExport(model, path);
+        }
+
+        public async Task<bool> exportMultiReport(IEnumerable<Tour> tourModels, string path)
+        {
+            IFileHandlerDAO fileDAO = DALFactory.GetReportHandler();
+            return await fileDAO.MultiExport(tourModels, path);
         }
     }
 }

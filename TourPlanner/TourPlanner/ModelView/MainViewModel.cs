@@ -46,6 +46,8 @@ namespace TourPlanner
 
         public RelayCommand ExportFile { get; }
         public RelayCommand ImportFile { get; }
+        public RelayCommand Report { get; }
+        public RelayCommand Multireport { get; }
 
         public MouseButtonEventHandler ChangebaleTour
         {
@@ -151,6 +153,27 @@ namespace TourPlanner
                 if(!await _tourfactory.exportFile(SelectedTour, tmpPath))
                     MessageBox.Show("export failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
             });
+
+            ImportFile = new RelayCommand(async (_) =>
+            {
+                string tmpPath = RetrieveFilePath();
+                
+            });
+
+            Report = new RelayCommand(async (_) =>
+            {
+                string tmpPath = RetrieveFolderPath();
+                if (!await _tourfactory.exportReport(SelectedTour, tmpPath))
+                    MessageBox.Show("report failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }); 
+            
+            Multireport = new RelayCommand(async (_) =>
+            {
+                string tmpPath = RetrieveFolderPath();
+                if (!await _tourfactory.exportMultiReport(_tourfactory.getAllTours(), tmpPath))
+                    MessageBox.Show("report failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+            });
+
         }
 
         private string RetrieveFolderPath() //returns users selected folder
@@ -158,6 +181,18 @@ namespace TourPlanner
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = "C:\\Users";
             dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                return dialog.FileName;
+            }
+            return string.Empty;
+        }
+
+        private string RetrieveFilePath() //returns users selected folder
+        {
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = "C:\\Users";
+            dialog.Filters.Add(new CommonFileDialogFilter("JSON File", "*.json"));
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 return dialog.FileName;

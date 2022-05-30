@@ -19,5 +19,9 @@ namespace TourPlanner.BusinessLayer
         ChildFriendliness calcChildFriendliness(List<TourLog> tourLogList, double dist);
         int calcPopularity(int logCount);
         Task<bool> exportFile(Tour tour, string path);
+        Task<Tour> importFile(string path);
+        Task<bool> exportReport(Tour tour, string path);
+        Task<bool> exportMultiReport(IEnumerable<Tour> tourModels, string path);
+
     }
 }

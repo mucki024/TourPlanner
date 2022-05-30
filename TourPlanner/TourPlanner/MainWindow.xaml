@@ -9,10 +9,10 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem  Header="_File">
-                <MenuItem Header="Import Tour from File" Command=""/>
+                <MenuItem Header="Import Tour from File" Command="{Binding ImportFile}"/>
                 <MenuItem Header="Export Selected Tour" Command="{Binding ExportFile}"/>
-                <MenuItem Header="Generate Tour-Report"/>
-                <MenuItem Header="Generate Summary-Report"/>
+                <MenuItem Header="Generate Report for selected Tour" Command="{Binding Report}"/>
+                <MenuItem Header="Generate Summary-Report" Command="{Binding Multireport}"/>
             </MenuItem>
             <MenuItem  Header="_Edit"></MenuItem>
             <MenuItem  Header="_Options"></MenuItem>
