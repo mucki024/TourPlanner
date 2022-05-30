@@ -110,7 +110,7 @@ namespace TourPlanner
         //Todo: add TourFactory through DI
         public MainViewModel(IWindowFactory TourWindow, SubWindowViewTour vmTourWindow, SubViewTourDescription vmTourDescpr, SubViewTourLogs vmTourLogs, SubWindowViewLog vmLogWindow)
         {
-            logger.Debug("Started Application");
+            logger.Debug("Pres: Started Application");
             _tourfactory = TourFactory.GetInstance();
             IntSubWindowForTours(vmTourWindow);
             _subViewTourDescr = vmTourDescpr;
@@ -147,31 +147,75 @@ namespace TourPlanner
                 FillToursToCollection();
             };
 
-            ExportFile =new  RelayCommand(async (_) =>
+            ExportFile = new  RelayCommand(async (_) =>
             {
+                if(SelectedTour == null)
+                {
+                    MessageBox.Show("please select a tour!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
                 string tmpPath = RetrieveFolderPath();
                 if(!await _tourfactory.exportFile(SelectedTour, tmpPath))
+                {
                     MessageBox.Show("export failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Export succeeded", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
             ImportFile = new RelayCommand(async (_) =>
             {
                 string tmpPath = RetrieveFilePath();
-                
+                Tour? tmpTour;
+                if ((tmpTour = await _tourfactory.importFile(tmpPath)) == null)
+                {
+                    MessageBox.Show("import failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                int tmpID;
+                if ((tmpID = await _tourfactory.addNewTour(tmpTour)) <= 0) //if false=> something wrong with api
+                {
+                    if(tmpID == -1)
+                        MessageBox.Show("Unable to dowload/save Image", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if(tmpID == -2)
+                        MessageBox.Show("Unable to process Route, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                foreach (var log in tmpTour.LogList)
+                {
+                    log.TourID = tmpID;
+                    log.Timestamp = log.Timestamp.ToUniversalTime();
+                    _tourfactory.addNewLog(log);
+                }
+                FillToursToCollection();
             });
 
             Report = new RelayCommand(async (_) =>
             {
+                if (SelectedTour == null)
+                {
+                    MessageBox.Show("please select a tour!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 string tmpPath = RetrieveFolderPath();
                 if (!await _tourfactory.exportReport(SelectedTour, tmpPath))
+                {
                     MessageBox.Show("report failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Generated Tour Report", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }); 
             
             Multireport = new RelayCommand(async (_) =>
             {
                 string tmpPath = RetrieveFolderPath();
                 if (!await _tourfactory.exportMultiReport(_tourfactory.getAllTours(), tmpPath))
+                {
                     MessageBox.Show("report failed, try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                MessageBox.Show("Generated Multi Report", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
         }
@@ -209,10 +253,14 @@ namespace TourPlanner
                 // call the BIZ-layer
                 if (fullTourData.IsCreateTour)
                 {
-                    string tmp;
-                    if ((tmp = await _tourfactory.addNewTour(fullTourData.TourData)) != String.Empty) //if false=> something wrong with api
+                    int tmp;
+                    if ((tmp = await _tourfactory.addNewTour(fullTourData.TourData)) <= 0) //if false=> something wrong with api
                     {
-                        MessageBox.Show(tmp, "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if (tmp == -1)
+                            MessageBox.Show("Unable to dowload/save Image", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if (tmp == -2)
+                            MessageBox.Show("Unable to process Route, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
                 }
                 if (!fullTourData.IsCreateTour)

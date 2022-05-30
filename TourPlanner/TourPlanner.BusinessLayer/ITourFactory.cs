@@ -6,7 +6,7 @@ namespace TourPlanner.BusinessLayer
 {
     public interface ITourFactory
     {
-        Task<string> addNewTour(Tour tourModel);
+        Task<int> addNewTour(Tour tourModel);
         bool addNewLog(TourLog tourLog);
         IEnumerable<Tour> getAllTours();
         IEnumerable<TourLog> getAllLogs(int tourId);

@@ -58,6 +58,9 @@ namespace TourPlanner
                 case nameof(TotalTime): // property name
                     validationMessage = ValidateTime();
                     break;
+                case nameof(Rating): // property name
+                    validationMessage = ValidateRating();
+                    break;
 
             }
             return validationMessage;
@@ -70,5 +73,12 @@ namespace TourPlanner
 
             return string.Empty;
         }
+        private string ValidateRating()
+        {
+            if (Rating > 10)
+                return "no ratings greater than 10";
+            return string.Empty;
+        }
+
     }
 }

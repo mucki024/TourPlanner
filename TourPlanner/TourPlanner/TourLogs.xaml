@@ -48,7 +48,7 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Binding="{Binding TotalTime,ValidatesOnDataErrors=True,StringFormat=hh\\:mm\\:ss}"  Header="Duration"/>
-                <DataGridTextColumn Binding="{Binding Rating}"  Header="Rating"/>
+                <DataGridTextColumn Binding="{Binding Rating,ValidatesOnDataErrors=True}"  Header="Rating"/>
                 <DataGridComboBoxColumn ItemsSource="{Binding Source={StaticResource GetDataFromEnum}}" SelectedItemBinding="{Binding Difficulty}"  Header="Difficulty"/>
                 <DataGridTextColumn Binding="{Binding Comment}" Header="Comment"/>
             </DataGrid.Columns>

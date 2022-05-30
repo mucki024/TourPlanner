@@ -43,7 +43,7 @@
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Rating" />
-            <TextBox Text="{Binding Rating}"/>
+            <TextBox Text="{Binding Rating, ValidatesOnDataErrors=True}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5">
             <Label Content="Comment" />

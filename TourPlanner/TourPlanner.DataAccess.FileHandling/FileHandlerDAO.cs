@@ -24,9 +24,9 @@ namespace TourPlanner.DataAccess.FileHandling
 
             try
             {
-                using FileStream createStream = System.IO.File.Create(fileName);
-                await JsonSerializer.SerializeAsync(createStream, tourModel);
-                await createStream.DisposeAsync();
+                string jsonModel = Newtonsoft.Json.JsonConvert.SerializeObject(tourModel);
+                //await JsonSerializer.SerializeAsync(createStream, tourModel);
+                await File.WriteAllTextAsync(fileName, jsonModel);
                 return true;
             }catch (UnauthorizedAccessException)
             {
@@ -38,25 +38,40 @@ namespace TourPlanner.DataAccess.FileHandling
                 logger.Error("DAL: Export: No model provided for export");
                 return false;
             }
-            /*
-            catch (Exception)
+            catch (Exception e)
             {
-                logger.Error("DAL: Export: Some error occoured");
+                logger.Error($"DAL: Export: something went wrong: {e.Message}");
                 return false;
             }
-            */
-            
-
-            //Tour? weatherForecast = JsonSerializer.Deserialize<Tour>(jsonModel);
         }
 
         public async Task<Tour> FileImport(string path)
         {
-            using (StreamReader reader = new StreamReader("C:\\Users\\MartinMuck\\Desktop\\TourExport.json"))
+            try
             {
-                string json = await reader.ReadToEndAsync();
-                Tour items = JsonSerializer.Deserialize<Tour>(json);
-                return items;
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    string json = await reader.ReadToEndAsync();
+                    //Tour items = JsonSerializer.Deserialize<Tour>(json);
+                    Tour items = Newtonsoft.Json.JsonConvert.DeserializeObject<Tour>(json);
+                    reader.Dispose();
+                    return items;
+                }
+
+            }
+            catch (FileNotFoundException)
+            {
+                logger.Error($"DAL: Import: File was not found for {path}");
+                return null;
+            }
+            catch (JsonException)
+            {
+                logger.Error($"DAL: Import: Deserialize went wrong");
+                return null;
+            }catch (Exception e)
+            {
+                logger.Error($"DAL: Import: something went wrong: {e.Message}");
+                return null;
             }
         }
 

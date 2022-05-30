@@ -26,7 +26,7 @@ namespace TourPlanner.BusinessLayer
             return tourDAO.SearchForTours(searchterm);
         }
 
-        public async Task<string> addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
+        public async Task<int> addNewTour(Tour tourModel) // in the business layer we need to translate the data input to a Tour
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             IApiAccessDAO accessDao = DALFactory.GetApi();
@@ -35,10 +35,10 @@ namespace TourPlanner.BusinessLayer
             {
                 Tour tmpTour = tourDAO.AddNewTour(tourModel);
                 if (!await accessDao.DownloadImage(tmpTour.TourID))
-                    return "Unable to dowload/save Image";
-                return string.Empty;
+                    return -1;
+                return tmpTour.TourID;
             }
-            return "Unable to process Route, please try again";
+            return -2;
         }
         public bool addNewLog(TourLog tourLog)
         {
@@ -100,7 +100,8 @@ namespace TourPlanner.BusinessLayer
 
         public async Task<Tour> importFile(string path)
         {
-            throw new NotImplementedException();
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            return await fileDAO.FileImport(path);
         }
 
         public async Task<bool> exportReport(Tour model, string path)
