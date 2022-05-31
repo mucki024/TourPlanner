@@ -8,7 +8,7 @@ namespace TourPlanner.Model
 {
     public enum TransportType
     {
-        AUTO, WALKING, BICYCLE
+        fastest, pedestrian, bicycle
     }
     public enum ChildFriendliness
     {

@@ -22,6 +22,7 @@ namespace TourPlanner.DataAccess.Common
         private static IFileHandlerDAO fileHandler;
         static DALFactory()
         {
+            var s = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
             dalAssembly = Assembly.Load(assemblyName);
             apiName = ConfigurationManager.AppSettings["DALApiAssembly"];
