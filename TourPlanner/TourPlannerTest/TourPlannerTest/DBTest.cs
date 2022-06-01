@@ -5,6 +5,7 @@ using TourPlanner;
 using TourPlanner.BusinessLayer;
 using TourPlanner.DataAccess.Common;
 using TourPlanner.DataAccess.FileHandling;
+using TourPlanner.DataAccess.DAO;
 using TourPlanner.DataAccess.PostgresSqlServer;
 using TourPlanner.Model;
 
@@ -17,32 +18,34 @@ namespace TourPlannerTest
         {
         }
 
-        //need to get cfg file working for those tests
-        
         [Test]
-        public void DatabaseConstructor_shouldEstablishConnection()
-        {
+        public void CanReadCfgFile()
+        {//cfg file read when fac instantiated first test is just about checking if it can therefore read the right file
+
             DALFactory fac = new DALFactory();
+            Assert.Pass();
+        }
+
+        [Test]
+        public void DatabaseNonQueryDoesntThrow()
+        {   DALFactory fac = new DALFactory();
             IDatabase db = DALFactory.GetDatabase();
-            Assert.IsTrue(true);
+            db.ExecuteNonQuery(db.CreateCommand("UPDATE public.\"Logs\" SET tid = 1 WHERE 1 <> 1 ; "));
+            Assert.IsTrue(true); 
         }
         [Test]
         public void Reflection_createsDesiredClass()
         {
             DALFactory fac = new DALFactory();
             IDatabase db = DALFactory.GetDatabase();
-            Assert.AreEqual(db.GetType(), typeof(Database)); //change to PGSQL DB
+            Assert.AreEqual(db.GetType(), typeof(Database)); //check for PGSQL DB
         }
         [Test]
         public void  MapQuestApiConnectionEstablished()
         {
-            Assert.Pass();
-        }
-        [Test]
-        public void FindsAndReadsConfigFile()
-        {
-            Assert.AreEqual("1234565", ConfigurationManager.AppSettings["configCheck"]);
-        }
+            DALFactory fac = new DALFactory();
+            Assert.Fail();
+        }       
         [Test]
         public void ChildFriendlynessDefaultWorks()
         {
@@ -72,12 +75,21 @@ namespace TourPlannerTest
         [Test]
         public void DALFactoryExportReflectionWorks()
         {
-            Assert.AreEqual(DALFactory.GetFileHandler(), typeof(FileHandlerDAO));
+            IFileHandlerDAO fileHandler = DALFactory.GetFileHandler();
+            Assert.AreEqual(fileHandler, typeof(FileHandlerDAO));
         }
         [Test]
         public void DALFactoryReportReflectionWorks()
         {
-            Assert.AreEqual(DALFactory.GetFileHandler(), typeof(ReportHandlerDAO));
+            IFileHandlerDAO reportHandler = DALFactory.GetReportHandler();
+            Assert.AreEqual(reportHandler, typeof(ReportHandlerDAO));
+        }
+        [Test]
+        public void DatabaseCallWorks()
+        {
+            DALFactory fac = new DALFactory();
+            IDatabase db = DALFactory.GetDatabase();
+            //Assert.DoesNotThrow(db.);
         }
 
     }

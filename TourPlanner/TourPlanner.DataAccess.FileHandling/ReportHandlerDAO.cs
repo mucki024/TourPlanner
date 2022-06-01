@@ -19,6 +19,7 @@ namespace TourPlanner.DataAccess.FileHandling
         {
             if (path==null || tourModel == null)
                 return false;
+            Func<ChildFriendliness, string> isChildFriendly = x => x == 0 ? "Yes" : "No";
             await Task.Run(() =>
             {
                 string fileName = path + "\\"+tourModel.TourID+"-"+tourModel.Tourname+".pdf";
@@ -29,7 +30,11 @@ namespace TourPlanner.DataAccess.FileHandling
                             .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA))
                             .SetFontSize(16)
                             .SetBold();
-                Paragraph TourData = new Paragraph("From: "+tourModel.Start+"\n"+"To: "+tourModel.Destination+"\nSummary: " + tourModel.RouteInformation)
+                Paragraph TourData = new Paragraph("From: " +
+                    tourModel.Start + "\n" + "To: " + tourModel.Destination + "\nPopularity: " + tourModel.Popularity + "\nSummary: " +
+                    tourModel.RouteInformation + "\n" + tourModel.TransportType.ToString() + " Distance: " +
+                    tourModel.TourDistance + "\nEstimated Time: " + tourModel.EstimatedTime + " Child friendly: " +
+                    isChildFriendly(tourModel.ChildFriendliness))
                                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
                 List Loglist = new List()
                       .SetSymbolIndent(12)
