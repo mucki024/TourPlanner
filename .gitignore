@@ -12,6 +12,7 @@
 
 #database
 App.config
+conf.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
