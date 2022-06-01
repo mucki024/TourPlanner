@@ -180,6 +180,9 @@ namespace TourPlanner
                         MessageBox.Show("Unable to dowload/save Image", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     if(tmpID == -2)
                         MessageBox.Show("Unable to process Route, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (tmpID == -3)
+                        MessageBox.Show("Route is too long, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+
                     return;
                 }
                 foreach (var log in tmpTour.LogList)
@@ -260,6 +263,8 @@ namespace TourPlanner
                             MessageBox.Show("Unable to dowload/save Image", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                         if (tmp == -2)
                             MessageBox.Show("Unable to process Route, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        if (tmp == -3)
+                            MessageBox.Show("Route is too long, please try again", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                 }

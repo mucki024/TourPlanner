@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using TourPlanner.DataAccess.DAO;
+using Newtonsoft.Json;
+using TourPlanner.Model;
 
 namespace TourPlanner.DataAccess.Common
 {
@@ -20,13 +22,28 @@ namespace TourPlanner.DataAccess.Common
         private static IApiAccessDAO apiAccess;
         private static Assembly fileAssembly;
         private static IFileHandlerDAO fileHandler;
+        private static string configPath;
+        private static ConfigData confData;
         static DALFactory()
         {
-            var s = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            assemblyName = ConfigurationManager.AppSettings["DALSqlAssembly"];
+            LoadConfData();
+            assemblyName = confData.DALSqlAssembly;
             dalAssembly = Assembly.Load(assemblyName);
-            apiName = ConfigurationManager.AppSettings["DALApiAssembly"];
+            apiName = confData.DALApiAssembly;
             apiAssembly = Assembly.Load(apiName);
+        }
+        private static void LoadConfData()
+        {
+            /*string basdir = System.AppDomain.CurrentDomain.BaseDirectory;
+            string projdir = Path.GetFullPath(Path.Combine(basdir, "..", "..", "..", ".."));
+            System.Diagnostics.Debug.Print(basdir);*/
+            configPath = System.AppDomain.CurrentDomain.BaseDirectory + "\\conf\\conf.json";
+            using (StreamReader reader = new StreamReader(configPath))
+            {
+                string json = reader.ReadToEnd();
+                confData = Newtonsoft.Json.JsonConvert.DeserializeObject<ConfigData>(json);
+                reader.Dispose();
+            }
         }
         public static IDatabase GetDatabase()
         {
@@ -36,7 +53,7 @@ namespace TourPlanner.DataAccess.Common
         }
         private static IDatabase CreateDatabase()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["PostgresSqlConnectionString"].ConnectionString;
+            string connectionString = confData.PostgresSqlConnectionString;
             return CreateDatabase(connectionString);
         }
         private static IDatabase CreateDatabase(string connectionString)
@@ -55,7 +72,7 @@ namespace TourPlanner.DataAccess.Common
 
         private static IApiAccessDAO CreateRouteAccess()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["ApiKey"].ConnectionString;
+            string connectionString = confData.ApiKey;
             string apiClassName = apiName + ".ApiHandlerDAO";
             Type apiClass = apiAssembly.GetType(apiClassName);
             return Activator.CreateInstance(apiClass, new object[] { connectionString }) as IApiAccessDAO; //needs to be done through reflection, cause otherwise child class is not known in this context

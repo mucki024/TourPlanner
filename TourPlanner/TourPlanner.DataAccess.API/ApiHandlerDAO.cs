@@ -29,7 +29,7 @@ namespace TourPlanner.DataAccess.API
                 _routeModel = await routeProc.ReadData<RouteModel>();
                 logger.Debug("DAL:Retrieved Distance/Time from API");
             }
-            catch (SystemException)
+            catch (Exception)
             {
                 logger.Error("DAL:Could not retrieve Route from API");
                 return null;

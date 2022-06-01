@@ -31,8 +31,11 @@ namespace TourPlanner.BusinessLayer
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             IApiAccessDAO accessDao = DALFactory.GetApi();
             tourModel = await accessDao.GetRouteInfo(tourModel);
+
             if(tourModel != null)
             {
+                if (tourModel.EstimatedTime.Hours > 23 || tourModel.EstimatedTime.Days > 0)
+                    return -3;
                 Tour tmpTour = tourDAO.AddNewTour(tourModel);
                 if (!await accessDao.DownloadImage(tmpTour.TourID))
                     return -1;

@@ -18,10 +18,4 @@
     <ProjectReference Include="..\..\TourPlanner\TourPlanner.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="testhost.x86.dll.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
