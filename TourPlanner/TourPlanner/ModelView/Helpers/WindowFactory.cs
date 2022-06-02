@@ -11,7 +11,10 @@ namespace TourPlanner
     {
         private SubWindowViewTour _viewModel;
         private SubWindowViewLog _viewModelLog;
+        public WindowFactory()
+        {
 
+        }
         public WindowFactory(SubWindowViewTour viewModel, SubWindowViewLog viewLog)
         {
             _viewModel = viewModel;
@@ -35,7 +38,7 @@ namespace TourPlanner
             window.ShowDialog();
         }
 
-        public void CreateLogWindow(int tourID)
+        public virtual void  CreateLogWindow(int tourID)
         {
             LogWindow window = new LogWindow();
             window.DataContext = _viewModelLog;

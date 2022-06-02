@@ -34,9 +34,9 @@ namespace TourPlanner
         public RelayCommand AddLog { get; }
         public RelayCommand DeleteLog { get; }
 
-        public SubViewTourLogs(SubWindowViewLog viewModel ,WindowFactory winFac)
+        public SubViewTourLogs(SubWindowViewLog viewModel, WindowFactory winFac, ITourFactory tourfactory)
         {
-            _tourfactory = TourFactory.GetInstance();   //should be done with DI perhaps
+            _tourfactory = tourfactory;   
             AddLog = new RelayCommand((_) =>
             {
                 winFac.CreateLogWindow(_tourID);
