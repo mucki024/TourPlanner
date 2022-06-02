@@ -15,6 +15,21 @@ namespace TourPlanner.DataAccess.FileHandling
 {
     public class ReportHandlerDAO : IFileHandlerDAO
     {
+        public string CheckFilePath(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string DefaultPicture()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePicture(string path)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> FileExport(Tour tourModel, string path)
         {
             if (path==null || tourModel == null)
@@ -58,6 +73,11 @@ namespace TourPlanner.DataAccess.FileHandling
         }
 
         public Task<Tour> FileImport(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetImagePath(int TourID)
         {
             throw new NotImplementedException();
         }

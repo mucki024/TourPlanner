@@ -9,6 +9,7 @@ using System.Reflection;
 using TourPlanner.DataAccess.DAO;
 using Newtonsoft.Json;
 using TourPlanner.Model;
+using System.Diagnostics;
 
 namespace TourPlanner.DataAccess.Common
 {
@@ -38,6 +39,7 @@ namespace TourPlanner.DataAccess.Common
             string projdir = Path.GetFullPath(Path.Combine(basdir, "..", "..", "..", ".."));
             System.Diagnostics.Debug.Print(basdir);*/
             configPath = System.AppDomain.CurrentDomain.BaseDirectory + "\\conf\\conf.json";
+
             using (StreamReader reader = new StreamReader(configPath))
             {
                 string json = reader.ReadToEnd();

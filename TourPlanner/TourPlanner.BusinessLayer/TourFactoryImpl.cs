@@ -70,6 +70,9 @@ namespace TourPlanner.BusinessLayer
         {
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             tourDAO.DeleteTour(tourModel);
+
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            //fileDAO.DeletePicture(fileDAO.GetImagePath(tourModel.TourID));
         }
         public void deleteTourLog(TourLog tourModel)
         {
@@ -79,11 +82,14 @@ namespace TourPlanner.BusinessLayer
 
         public string checkImage(string path)
         {
-            if (File.Exists(path))
-            {
-                return path;
-            }
-            return System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            return fileDAO.CheckFilePath(path);
+        }
+
+        public string getDefaultPicture()
+        {
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            return fileDAO.DefaultPicture();
         }
 
         public ChildFriendliness calcChildFriendliness(List<TourLog> tourLogList, double dist)
@@ -117,6 +123,12 @@ namespace TourPlanner.BusinessLayer
         {
             IFileHandlerDAO fileDAO = DALFactory.GetReportHandler();
             return await fileDAO.MultiExport(tourModels, path);
+        }
+
+        public string getImagePath(int TourID)
+        {
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            return fileDAO.CheckFilePath(fileDAO.GetImagePath(TourID));
         }
     }
 }

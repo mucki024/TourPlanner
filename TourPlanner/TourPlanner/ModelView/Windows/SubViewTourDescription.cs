@@ -14,6 +14,7 @@ namespace TourPlanner
 {
     public class SubViewTourDescription : ViewModelBase
     {
+        public ITourFactory _fac;
         private string _title = "Title: ";
         public string Title
         {
@@ -141,7 +142,7 @@ namespace TourPlanner
         }
 
 
-        private string _imageName = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
+        private string _imageName;
         public string ImageName
         {
             get { return _imageName; }
@@ -149,7 +150,7 @@ namespace TourPlanner
             {
                 if (_imageName != value)
                 {
-                    _imageName = TourFactory.GetInstance().checkImage(value); //return fallback image => only to fix xaml binding exceptions
+                    _imageName = _fac.checkImage(value); //return fallback image => only to fix xaml binding exceptions
                     OnPropertyChanged(nameof(ImageName));
                 }
             }
@@ -165,33 +166,22 @@ namespace TourPlanner
             this.TourDistance = tour.TourDistance;
             this.EstimatedTime = tour.EstimatedTime;
             this.Description = tour.RouteInformation;
-            this.ImageName = System.AppDomain.CurrentDomain.BaseDirectory + $"\\images\\{tour.TourID}.jpeg";
+            this.ImageName = _fac.getImagePath(tour.TourID);
             calculateAdditionalData(tour);
         }
 
         private void calculateAdditionalData(Tour tour)
         {
-            ITourFactory fac =  TourFactory.GetInstance();
-            this.Popularity = fac.calcPopularity(tour.LogList.Count());
-            this.ChildFriendl = fac.calcChildFriendliness(tour.LogList, tour.TourDistance);
+            this.Popularity = _fac.calcPopularity(tour.LogList.Count());
+            this.ChildFriendl = _fac.calcChildFriendliness(tour.LogList, tour.TourDistance);
         }
 
         public RelayCommand MyCommand { get; set; }
 
-        /*
-        private async Task LoadAPI()
-        {
-            ApiHelper.GetInstance();
-            //var model = await IApiProcessor.LoadData<RouteModel>("http://www.mapquestapi.com/directions/v2/route?key=xFA4sS7TC6RZk5gGZSr2vmcljK87l692&from=Wien&to=Böheimkirchen");
-
-            //logger.Debug("Hey2");
-            //logger.Debug(model.ToString());
-
-        }
-        */
         public SubViewTourDescription()
         {
- 
+            _fac = TourFactory.GetInstance();
+            _imageName = _fac.getDefaultPicture();
         }
     }
 }

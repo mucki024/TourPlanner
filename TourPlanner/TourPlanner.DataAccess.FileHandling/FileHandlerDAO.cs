@@ -18,6 +18,8 @@ namespace TourPlanner.DataAccess.FileHandling
         {
 
         }
+
+
         public async Task<bool> FileExport(Tour tourModel, string path)
         {
             string fileName = path + "\\TourExport.json";
@@ -74,10 +76,53 @@ namespace TourPlanner.DataAccess.FileHandling
                 return null;
             }
         }
+        public string CheckFilePath(string path)
+        {
+            if (File.Exists(path))
+            {
+                return path;
+            }
+            return DefaultPicture();
+        }
+
+        public string DefaultPicture()
+        {
+            return System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
+        }
+        public string GetImagePath(int TourID)
+        {
+            return System.AppDomain.CurrentDomain.BaseDirectory + $"images\\{TourID}.jpeg";
+        }
+
+        public void DeletePicture(string path)
+        {
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    logger.Error($"DAL: File: Picture does not exist for path {path} ");
+                    return;
+                }
+
+                System.GC.Collect();
+                System.GC.WaitForPendingFinalizers();
+                File.Delete(path);
+                logger.Debug("DAL: File: Deleted Picture");
+            }
+            catch(IOException e)
+            {
+                logger.Error($"DAL: File: Could not locate File : {e.Message} ");
+            }
+            catch (Exception e)
+            {
+                logger.Error($"DAL: File: Could not delete Picture on \"Server\": {e.Message}");
+            }
+        }
 
         public Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path)
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -128,6 +128,7 @@ namespace TourPlanner
             {
                 if (SelectedTour != null)
                 {
+                    vmTourDescpr.ImageName = _tourfactory.getDefaultPicture();
                     _tourfactory.deleteTour(SelectedTour);
                     TourData.Remove(SelectedTour);
                 }
