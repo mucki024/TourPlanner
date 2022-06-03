@@ -8,6 +8,8 @@ using TourPlanner.DataAccess.FileHandling;
 using TourPlanner.DataAccess.DAO;
 using TourPlanner.DataAccess.PostgresSqlServer;
 using TourPlanner.Model;
+using System.Data.Common;
+using System.Data;
 
 namespace TourPlannerTest
 {
@@ -31,7 +33,7 @@ namespace TourPlannerTest
         {   DALFactory fac = new DALFactory();
             IDatabase db = DALFactory.GetDatabase();
             db.ExecuteNonQuery(db.CreateCommand("UPDATE public.\"Logs\" SET tid = 1 WHERE 1 <> 1 ; "));
-            Assert.IsTrue(true); 
+            Assert.Pass(); //if gets here it means it could connect to db and make a querry
         }
         [Test]
         public void Reflection_createsDesiredClass()
@@ -39,13 +41,7 @@ namespace TourPlannerTest
             DALFactory fac = new DALFactory();
             IDatabase db = DALFactory.GetDatabase();
             Assert.AreEqual(db.GetType(), typeof(Database)); //check for PGSQL DB
-        }
-        [Test]
-        public void  MapQuestApiConnectionEstablished()
-        {
-            DALFactory fac = new DALFactory();
-            Assert.Fail();
-        }       
+        }     
         [Test]
         public void ChildFriendlynessDefaultWorks()
         {
@@ -76,20 +72,36 @@ namespace TourPlannerTest
         public void DALFactoryExportReflectionWorks()
         {
             IFileHandlerDAO fileHandler = DALFactory.GetFileHandler();
-            Assert.AreEqual(fileHandler, typeof(FileHandlerDAO));
+            Assert.AreEqual(fileHandler.GetType(), typeof(FileHandlerDAO));
         }
-        [Test]
-        public void DALFactoryReportReflectionWorks()
+        [Test] 
+        public void DALFactoryReportGenerationDoesntThrow()
         {
             IFileHandlerDAO reportHandler = DALFactory.GetReportHandler();
-            Assert.AreEqual(reportHandler, typeof(ReportHandlerDAO));
+            reportHandler.FileExport(null, null);
+            Assert.Pass();//if it gets here it means the file export stopped before wrong data got read
         }
         [Test]
-        public void DatabaseCallWorks()
+        public void DatabaseCallRecievesData()
         {
             DALFactory fac = new DALFactory();
             IDatabase db = DALFactory.GetDatabase();
-            //Assert.DoesNotThrow(db.);
+            DbCommand getCommand = db.CreateCommand("SELECT * FROM public.\"Tours\"");
+            IDataReader reader = db.ExecuteReader(getCommand);
+            if (reader.Read())
+                Assert.Pass(); //recieves data from DB
+        }
+        [Test]
+        public void DALFactoryPostgresDaoReflectionWorks1()
+        {
+            ITourDAO dao = DALFactory.CreateTourDAO();
+            Assert.AreEqual(dao.GetType(), typeof(TourPostgresDAO));
+        }
+        [Test]
+        public void DALFactoryPostgresDaoReflectionWorks2()
+        {
+            ITourLogDAO dao = DALFactory.CreateTourLogDAO();
+            Assert.AreEqual(dao.GetType(), typeof(TourLogPostgresDAO));
         }
 
     }
