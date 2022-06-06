@@ -39,11 +39,12 @@ namespace TourPlanner
             this.Rating = rating;
             ConvertDate();
         }
-
+        
         public EditableTourLogModel()
         {
 
         }
+        
         public string Error => string.Empty;
         public string this[string columnName]
         {

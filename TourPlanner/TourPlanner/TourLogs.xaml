@@ -29,8 +29,8 @@
                   ItemsSource="{Binding TourLogData}" 
                   SelectedItem="{Binding SelectedTourLog}"
                   AutoGenerateColumns="False" 
-                  CanUserAddRows="True"
-                  CanUserDeleteRows="True"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
                   IsEnabled="True"
                   AlternatingRowBackground="LightGray">
             <!-- use datagrid to display table dynamically-->

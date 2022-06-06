@@ -39,7 +39,8 @@ namespace TourPlanner
             _tourfactory = tourfactory;   
             AddLog = new RelayCommand((_) =>
             {
-                winFac.CreateLogWindow(_tourID);
+                if(_tourID > 0)
+                    winFac.CreateLogWindow(_tourID);
             });
 
             DeleteLog = new RelayCommand((_) =>
