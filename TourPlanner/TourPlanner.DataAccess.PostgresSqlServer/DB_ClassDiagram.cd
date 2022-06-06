@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TourPlanner.DataAccess.PostgresSqlServer.Database" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACkAAAAEAEAAAAABAAAAAAAAgAAAAQA=</HashCode>
+      <FileName>Database.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TourPlanner.DataAccess.PostgresSqlServer.TourLogPostgresDAO">
+    <Position X="1.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAEBAAABAAAAAAAAAAAAwQAAAAgABgAEAAIA=</HashCode>
+      <FileName>TourLogPostgresDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TourPlanner.DataAccess.PostgresSqlServer.TourPostgresDAO">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAGCYAIFAAAAQAAQAAAARAAAAAAAAkAAAAAA=</HashCode>
+      <FileName>TourPostgresDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
