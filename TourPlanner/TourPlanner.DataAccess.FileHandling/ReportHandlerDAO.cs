@@ -1,10 +1,12 @@
 ﻿using iText.IO.Font.Constants;
+using iText.IO.Image;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +36,7 @@ namespace TourPlanner.DataAccess.FileHandling
         {
             if (path==null || tourModel == null)
                 return false;
-            Func<ChildFriendliness, string> isChildFriendly = x => x == 0 ? "Yes" : "No";
+            Func<ChildFriendliness, string> isChildFriendly = x => x == ChildFriendliness.ChildFriendly ? "Yes" : "No";
             await Task.Run(() =>
             {
                 string fileName = path + "\\"+tourModel.TourID+"-"+tourModel.Tourname+".pdf";
@@ -51,6 +53,10 @@ namespace TourPlanner.DataAccess.FileHandling
                     tourModel.TourDistance + "\nEstimated Time: " + tourModel.EstimatedTime + " Child friendly: " +
                     isChildFriendly(tourModel.ChildFriendliness))
                                .SetFont(PdfFontFactory.CreateFont(StandardFonts.HELVETICA));
+                string imagePath = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\{tourModel.TourID}.jpeg";
+                if(!File.Exists(imagePath))
+                    imagePath = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\white.png";
+                ImageData imageData = ImageDataFactory.Create(imagePath);
                 List Loglist = new List()
                       .SetSymbolIndent(12)
                       .SetListSymbol("")
@@ -66,6 +72,7 @@ namespace TourPlanner.DataAccess.FileHandling
 
                 document.Add(TourNameHeader);
                 document.Add(TourData);
+                document.Add(new Image(imageData));
                 document.Add(Loglist);
                 document.Close();
             });

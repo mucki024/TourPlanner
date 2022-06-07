@@ -204,6 +204,8 @@ namespace TourPlanner
                     MessageBox.Show("please select a tour!", "Save error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+                SelectedTour.ChildFriendliness = vmTourDescpr.ChildFriendl;
+                SelectedTour.Popularity = vmTourDescpr.Popularity;
                 string tmpPath = RetrieveFolderPath();
                 if (!await _tourfactory.exportReport(SelectedTour, tmpPath))
                 {

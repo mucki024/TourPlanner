@@ -27,6 +27,8 @@ namespace TourPlannerTest
             var tourFactoryMock = new Mock<ITourFactory>();
             windowFactoryMock.Setup(mock => mock.CreateLogWindow(It.IsAny<int>()));
             _viewModel = new SubViewTourLogs(subWindowLogMock.Object, windowFactoryMock.Object, tourFactoryMock.Object);
+            typeof(SubViewTourLogs).GetField("_tourID", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(_viewModel,2);
+
             //Act 
             _viewModel.AddLog.Execute(null);
             //Assert
