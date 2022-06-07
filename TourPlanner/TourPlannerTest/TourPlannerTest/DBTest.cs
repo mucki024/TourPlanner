@@ -72,7 +72,7 @@ namespace TourPlannerTest
             logs = new List<TourLog>();
             logs.Add(log);
             //tour rated as easy but dist high
-            Assert.AreEqual(CalculateChildFHelper.CheckChildfriendlíness(logs, 9.0), ChildFriendliness.OnlyForAdults);
+            Assert.AreEqual(CalculateChildFHelper.CheckChildfriendlíness(logs, 15.0), ChildFriendliness.OnlyForAdults);
         }
         [Test]
         public void DALFactoryExportReflectionWorks()
