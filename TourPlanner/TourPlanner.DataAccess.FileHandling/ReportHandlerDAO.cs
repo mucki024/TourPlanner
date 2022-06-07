@@ -82,6 +82,16 @@ namespace TourPlanner.DataAccess.FileHandling
             throw new NotImplementedException();
         }
 
+        public List<int> GetToDeleteImages()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MarkToDelete(int tourID)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path) 
         {//should get called after full db querry to make sure all tours are supplied
             if (path == null)

@@ -16,6 +16,8 @@ namespace TourPlanner.DataAccess.DAO
         public string DefaultPicture();
         public string GetImagePath(int TourID);
         public void DeletePicture(string path);
+        public List<int> GetToDeleteImages();
+        public void MarkToDelete(int tourID);
 
     }
 }

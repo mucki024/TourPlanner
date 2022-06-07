@@ -1,2 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TourPlanner.BusinessLayer.TourFactory" Collapsed="true">
+    <Position X="5.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TourFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner.BusinessLayer.TourFactoryImpl" Collapsed="true">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAIAAAACAACEAAAAAAAgABwQAAAAAAAAAgQABAkAI=</HashCode>
+      <FileName>TourFactoryImpl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TourPlanner.BusinessLayer.CalculateChildFHelper" Collapsed="true">
+    <Position X="9" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helper\CalculateChildFHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner.BusinessLayer.CalculatePopHelper" Collapsed="true">
+    <Position X="9" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helper\CalculatePopHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TourPlanner.BusinessLayer.ITourFactory" Collapsed="true">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ITourFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.BusinessLayer.ITourFactoryFileAction">
+    <Position X="3.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAEAAAAAAAgAAwQAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>ITourFactoryFileAction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.BusinessLayer.ITourFactoryLog">
+    <Position X="5.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAACAAAAAAAAAABAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>ITourFactoryLog.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.BusinessLayer.ITourFactoryTour">
+    <Position X="7.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAQABAgAI=</HashCode>
+      <FileName>ITourFactoryTour.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

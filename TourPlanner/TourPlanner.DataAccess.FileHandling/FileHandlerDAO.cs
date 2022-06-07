@@ -7,18 +7,14 @@ using System.Threading.Tasks;
 using TourPlanner.DataAccess.DAO;
 using TourPlanner.Logging;
 using TourPlanner.Model;
+using System.Linq;
 
 namespace TourPlanner.DataAccess.FileHandling
 {
     public class FileHandlerDAO : IFileHandlerDAO
     {
         private static ILoggerWrapper logger = LoggerFactory.GetLogger();
-
-        public FileHandlerDAO()
-        {
-
-        }
-
+        private string _toDeleteFilePath = System.AppDomain.CurrentDomain.BaseDirectory + $"images\\toDelete.txt";
 
         public async Task<bool> FileExport(Tour tourModel, string path)
         {
@@ -122,6 +118,54 @@ namespace TourPlanner.DataAccess.FileHandling
         public Task<bool> MultiExport(IEnumerable<Tour> tourModels, string path)
         {
             throw new NotImplementedException();
+        }
+
+        public void MarkToDelete(int tourID)
+        {
+            try
+            {
+                string path = _toDeleteFilePath;
+                using (FileStream aFile = new FileStream(path, FileMode.Append, FileAccess.Write))
+                using (StreamWriter sw = new StreamWriter(aFile))
+                {
+                    sw.WriteLine(tourID);
+                }
+
+            }
+            catch (Exception e)
+            {
+                logger.Error($"DAL: File: Could not write into toDelete.txt {e.Message}");
+            }
+        }
+        public List<int> GetToDeleteImages()
+        {
+            string path = _toDeleteFilePath;
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    logger.Error($"DAL: File: Could not find toDelete.txt ");
+                    return null;
+                }
+                if (new FileInfo(path).Length == 0)
+                    return null;
+
+                var data = File
+                    .ReadAllLines(path)
+                    .Select(x => Convert.ToInt32(x))
+                    .ToList();
+                File.WriteAllText(path, "");
+                return data;
+            }
+            catch (IOException e)
+            {
+                logger.Error($"DAL: File: Could not locate File : {e.Message} ");
+            }
+            catch (Exception e)
+            {
+                logger.Error($"DAL: File: Could not read toDeleteFile {e.Message}");
+            }
+            return null;
         }
 
     }

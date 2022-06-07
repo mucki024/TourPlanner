@@ -68,11 +68,11 @@ namespace TourPlanner.BusinessLayer
         }
         public void deleteTour(Tour tourModel)
         {
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            fileDAO.MarkToDelete(tourModel.TourID);
+
             ITourDAO tourDAO = DALFactory.CreateTourDAO();
             tourDAO.DeleteTour(tourModel);
-
-            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
-            //fileDAO.DeletePicture(fileDAO.GetImagePath(tourModel.TourID));
         }
         public void deleteTourLog(TourLog tourModel)
         {
@@ -129,6 +129,18 @@ namespace TourPlanner.BusinessLayer
         {
             IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
             return fileDAO.CheckFilePath(fileDAO.GetImagePath(TourID));
+        }
+
+        public void pictureCleanUp()
+        {
+            IFileHandlerDAO fileDAO = DALFactory.GetFileHandler();
+            List<int> tmp = fileDAO.GetToDeleteImages();
+            if (tmp is null)
+                return;
+            foreach (var tourID in tmp)
+            {
+                fileDAO.DeletePicture(fileDAO.GetImagePath(tourID));
+            }
         }
     }
 }

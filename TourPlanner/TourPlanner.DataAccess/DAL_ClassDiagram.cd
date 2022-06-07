@@ -1,2 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TourPlanner.DataAccess.Common.DALFactory" Collapsed="true">
+    <Position X="3.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEABABIgEAAAADAAEIAAAAEAADIAEAAAAAIIgAgAAA=</HashCode>
+      <FileName>Common\DALFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="TourPlanner.DataAccess.Common.IDatabase" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAEAEAAAAABAAAAAAAAgAAAAQA=</HashCode>
+      <FileName>Common\IDatabase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.DataAccess.DAO.IApiAccessDAO" Collapsed="true">
+    <Position X="4.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAIAAA=</HashCode>
+      <FileName>DAO\IApiAccessDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.DataAccess.DAO.ITourDAO" Collapsed="true">
+    <Position X="2.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAIAIEAAAAQAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAO\ITourDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.DataAccess.DAO.IFileHandlerDAO" Collapsed="true">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAIAAAAAACAQAgAAoAA=</HashCode>
+      <FileName>DAO\IFileHandlerDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TourPlanner.DataAccess.DAO.ITourLogDAO" Collapsed="true">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAABAAAAAAAAAAAAAAAAgQAAAAAAAAAAAAIA=</HashCode>
+      <FileName>DAO\ITourLogDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

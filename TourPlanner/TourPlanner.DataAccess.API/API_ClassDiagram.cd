@@ -1,2 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TourPlanner.DataAccess.API.ApiHandlerDAO">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAEAIAAA=</HashCode>
+      <FileName>ApiHandlerDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TourPlanner.DataAccess.API.ApiHelper" Collapsed="true">
+    <Position X="4.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAABQAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>ApiHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner.DataAccess.API.MapProcessor" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAQABAAAAABAAACAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>MapProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TourPlanner.DataAccess.API.RouteProcessor" Collapsed="true">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAABAAACAAAAAQACAAAAAAAAAAAAA=</HashCode>
+      <FileName>RouteProcessor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

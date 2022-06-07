@@ -13,6 +13,7 @@ namespace TourPlanner.BusinessLayer
         Task<Tour> importFile(string path);
         Task<bool> exportReport(Tour tour, string path);
         Task<bool> exportMultiReport(IEnumerable<Tour> tourModels, string path);
+        void pictureCleanUp();
 
     }
 }

@@ -116,6 +116,7 @@ namespace TourPlanner
             _subViewTourDescr = vmTourDescpr;
             _subViewTourLogs = vmTourLogs;
 
+            _tourfactory.pictureCleanUp();
             //fill observable collection
             FillToursToCollection();
 
@@ -129,8 +130,9 @@ namespace TourPlanner
                 if (SelectedTour != null)
                 {
                     vmTourDescpr.ImageName = _tourfactory.getDefaultPicture();
-                    _tourfactory.deleteTour(SelectedTour);
+                    Tour tmp = SelectedTour;
                     TourData.Remove(SelectedTour);
+                    _tourfactory.deleteTour(tmp);
                 }
             });
 
