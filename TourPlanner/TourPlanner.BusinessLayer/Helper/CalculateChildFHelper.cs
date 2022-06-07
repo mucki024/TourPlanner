@@ -15,7 +15,7 @@ namespace TourPlanner.BusinessLayer
                 return ChildFriendliness.notCalculated;
             var containsHard = tourLogList.Any(log => log.Difficulty== DiffucltyLevel.hard);
             var tooLongTimeCount = tourLogList.Count(log => log.TotalTime > TimeSpan.FromHours(12));
-            if (!containsHard && tooLongTimeCount <= 2 && dist < 9.0)
+            if (!containsHard && tooLongTimeCount <= 2 && dist < 15.0)
                 return ChildFriendliness.ChildFriendly;
             return ChildFriendliness.OnlyForAdults;
         }

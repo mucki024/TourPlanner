@@ -36,16 +36,16 @@
             <TextBox Text="{Binding Description}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
-            <Label Content="TransportType" />
-            <ComboBox ItemsSource="{Binding Source={StaticResource GetDataFromEnum}}" SelectedValue="{Binding TransportType}"/>
-        </DockPanel>
-        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Start" />
             <TextBox Text="{Binding Start, ValidatesOnDataErrors=True}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
             <Label Content="Destination" />
             <TextBox Text="{Binding Destination, ValidatesOnDataErrors=True}"/>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" Margin="5" Visibility="{Binding AttributeVisibility }">
+            <Label Content="TransportType" />
+            <ComboBox ItemsSource="{Binding Source={StaticResource GetDataFromEnum}}" SelectedValue="{Binding TransportType}"/>
         </DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <Button  x:Name="submit" Content = "Submit"
