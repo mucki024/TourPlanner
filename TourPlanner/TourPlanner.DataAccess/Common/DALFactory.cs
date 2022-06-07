@@ -23,6 +23,7 @@ namespace TourPlanner.DataAccess.Common
         private static IApiAccessDAO apiAccess;
         private static Assembly fileAssembly;
         private static IFileHandlerDAO fileHandler;
+        private static IFileHandlerDAO reportHandler;
         private static string configPath;
         private static ConfigData confData;
         static DALFactory()
@@ -88,9 +89,9 @@ namespace TourPlanner.DataAccess.Common
         }
         public static IFileHandlerDAO GetReportHandler()
         {
-            if (fileHandler == null)
-                fileHandler = GetNewHandler(".ReportHandlerDAO");
-            return fileHandler;
+            if (reportHandler == null)
+                reportHandler = GetNewHandler(".ReportHandlerDAO");
+            return reportHandler;
         }
         private static IFileHandlerDAO GetNewHandler(string desiredClass)
         {
